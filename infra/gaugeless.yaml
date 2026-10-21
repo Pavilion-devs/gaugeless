@@ -1,0 +1,345 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  Gaugeless - river discharge from video. S3 uploads -> SQS -> Graviton worker (OpenCV 5 / COOL + agent)
+  -> DynamoDB; escalations and flood alerts wait for a human in Step Functions before SNS sends anything.
+
+Parameters:
+  WorkerAmi:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-arm64
+    Description: Arm64 AMI. Swap for the COOL Graviton AMI id once subscribed (then set CoolAmi=true).
+  CoolAmi:
+    Type: String
+    AllowedValues: ["true", "false"]
+    Default: "false"
+  InstanceType:
+    Type: String
+    Default: t4g.small
+    Description: t4g.small/micro are free-plan eligible Graviton; c8g (Graviton4) for the benchmark on a paid plan.
+    AllowedValues: [t4g.micro, t4g.small, t4g.medium, t4g.large, c7g.large, c8g.large, c8g.xlarge, c8g.2xlarge]
+  AlertEmail:
+    Type: String
+    Description: Receives approval requests, (approved) flood alerts and budget warnings.
+  BudgetUsd:
+    Type: Number
+    Default: 20
+    Description: Monthly cost alert (gross usage, before credits) at 80% actual and 100% forecast.
+  CodeKey:
+    Type: String
+    Default: code/gaugeless.tar.gz
+    Description: Key in the uploads bucket of the packaged repo (make package; make upload-code).
+  Planner:
+    Type: String
+    AllowedValues: [rules, claude]
+    Default: rules
+
+Conditions:
+  UseCool: !Equals [!Ref CoolAmi, "true"]
+
+Resources:
+  # ---------------------------------------------------------------- storage + queue
+  JobDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      MessageRetentionPeriod: 1209600
+  JobQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      VisibilityTimeout: 900
+      RedrivePolicy: {deadLetterTargetArn: !GetAtt JobDLQ.Arn, maxReceiveCount: 3}
+  JobQueuePolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      Queues: [!Ref JobQueue]
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal: {Service: s3.amazonaws.com}
+            Action: sqs:SendMessage
+            Resource: !GetAtt JobQueue.Arn
+            Condition:
+              ArnLike: {aws:SourceArn: !Sub "arn:aws:s3:::gaugeless-${AWS::AccountId}-${AWS::Region}"}
+  UploadsBucket:
+    Type: AWS::S3::Bucket
+    DependsOn: JobQueuePolicy
+    Properties:
+      BucketName: !Sub gaugeless-${AWS::AccountId}-${AWS::Region}
+      PublicAccessBlockConfiguration:
+        {BlockPublicAcls: true, BlockPublicPolicy: true, IgnorePublicAcls: true, RestrictPublicBuckets: true}
+      BucketEncryption:
+        ServerSideEncryptionConfiguration: [{ServerSideEncryptionByDefault: {SSEAlgorithm: AES256}}]
+      LifecycleConfiguration:
+        Rules: [{Id: expire-uploads, Status: Enabled, Prefix: uploads/, ExpirationInDays: 30}]
+      NotificationConfiguration:
+        QueueConfigurations:
+          - Event: s3:ObjectCreated:*
+            Queue: !GetAtt JobQueue.Arn
+            Filter: {S3Key: {Rules: [{Name: prefix, Value: uploads/}, {Name: suffix, Value: .json}]}}
+  ResultsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions: [{AttributeName: job_id, AttributeType: S}]
+      KeySchema: [{AttributeName: job_id, KeyType: HASH}]
+
+  # ---------------------------------------------------------------- cost guard
+  CostBudget:
+    Type: AWS::Budgets::Budget
+    Properties:
+      Budget:
+        BudgetName: !Sub ${AWS::StackName}-monthly
+        BudgetType: COST
+        TimeUnit: MONTHLY
+        BudgetLimit: {Amount: !Ref BudgetUsd, Unit: USD}
+        CostTypes: {IncludeCredit: false, IncludeRefund: false}
+      NotificationsWithSubscribers:
+        - Notification: {NotificationType: ACTUAL, ComparisonOperator: GREATER_THAN, Threshold: 80, ThresholdType: PERCENTAGE}
+          Subscribers: [{SubscriptionType: EMAIL, Address: !Ref AlertEmail}]
+        - Notification: {NotificationType: FORECASTED, ComparisonOperator: GREATER_THAN, Threshold: 100, ThresholdType: PERCENTAGE}
+          Subscribers: [{SubscriptionType: EMAIL, Address: !Ref AlertEmail}]
+
+  # ---------------------------------------------------------------- human approval
+  AlertTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      Subscription: [{Protocol: email, Endpoint: !Ref AlertEmail}]
+
+  LambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement: [{Effect: Allow, Principal: {Service: lambda.amazonaws.com}, Action: sts:AssumeRole}]
+      ManagedPolicyArns: [arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole]
+      Policies:
+        - PolicyName: approval
+          PolicyDocument:
+            Statement:
+              - {Effect: Allow, Action: [states:SendTaskSuccess, states:SendTaskFailure], Resource: "*"}
+              - {Effect: Allow, Action: sns:Publish, Resource: !Ref AlertTopic}
+
+  ApprovalFn:
+    Type: AWS::Lambda::Function
+    Properties:
+      Runtime: python3.12
+      Architectures: [arm64]
+      Handler: index.handler
+      Role: !GetAtt LambdaRole.Arn
+      Timeout: 10
+      Code:
+        ZipFile: |
+          import json, boto3
+          sfn = boto3.client("stepfunctions")
+          def handler(event, context):
+              q = event.get("queryStringParameters") or {}
+              token, action = q.get("token"), q.get("action")
+              if not token or action not in ("approve", "reject"):
+                  return {"statusCode": 400, "body": "missing token/action"}
+              who = q.get("by", "operator")
+              if action == "approve":
+                  sfn.send_task_success(taskToken=token, output=json.dumps({"approved": True, "by": who}))
+              else:
+                  sfn.send_task_failure(taskToken=token, error="Rejected", cause=f"rejected by {who}")
+              return {"statusCode": 200, "headers": {"content-type": "text/html"},
+                      "body": f"<h2>Gaugeless: {action}d.</h2><p>Recorded. You can close this tab.</p>".replace("rejectd", "rejected")}
+  ApprovalUrl:
+    Type: AWS::Lambda::Url
+    Properties: {AuthType: NONE, TargetFunctionArn: !GetAtt ApprovalFn.Arn}
+  ApprovalUrlPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunctionUrl
+      FunctionName: !Ref ApprovalFn
+      Principal: "*"
+      FunctionUrlAuthType: NONE
+  ApprovalInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref ApprovalFn
+      Principal: "*"
+      InvokedViaFunctionUrl: true
+
+  NotifyFn:
+    Type: AWS::Lambda::Function
+    Properties:
+      Runtime: python3.12
+      Architectures: [arm64]
+      Handler: index.handler
+      Role: !GetAtt LambdaRole.Arn
+      Timeout: 10
+      Environment:
+        Variables: {TOPIC: !Ref AlertTopic, APPROVAL_URL: !GetAtt ApprovalUrl.FunctionUrl}
+      Code:
+        ZipFile: |
+          import os, urllib.parse, boto3
+          sns = boto3.client("sns")
+          def handler(event, context):
+              t = urllib.parse.quote(event["token"], safe="")
+              base = os.environ["APPROVAL_URL"].rstrip("/")
+              job = event["job"]
+              msg = (f"Gaugeless needs a human decision.\n\nSite: {job.get('site')}\nJob: {job.get('job_id')}\n"
+                     f"Reason: {job.get('reason')}\nDischarge: {job.get('q')} m3/s\n\n"
+                     f"Approve (sends the alert): {base}/?action=approve&token={t}\n"
+                     f"Reject: {base}/?action=reject&token={t}\n")
+              sns.publish(TopicArn=os.environ["TOPIC"], Subject="Gaugeless: approval needed", Message=msg)
+              return {"sent": True}
+
+  SfnRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement: [{Effect: Allow, Principal: {Service: states.amazonaws.com}, Action: sts:AssumeRole}]
+      Policies:
+        - PolicyName: sfn
+          PolicyDocument:
+            Statement:
+              - {Effect: Allow, Action: lambda:InvokeFunction, Resource: !GetAtt NotifyFn.Arn}
+              - {Effect: Allow, Action: sns:Publish, Resource: !Ref AlertTopic}
+              - {Effect: Allow, Action: dynamodb:UpdateItem, Resource: !GetAtt ResultsTable.Arn}
+
+  ApprovalMachine:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+      RoleArn: !GetAtt SfnRole.Arn
+      DefinitionString: !Sub |
+        {
+          "Comment": "Escalations and flood alerts wait for a human before anything is sent",
+          "StartAt": "WaitForHuman",
+          "States": {
+            "WaitForHuman": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::lambda:invoke.waitForTaskToken",
+              "Parameters": {"FunctionName": "${NotifyFn.Arn}", "Payload": {"token.$": "$$.Task.Token", "job.$": "$"}},
+              "TimeoutSeconds": 21600,
+              "ResultPath": "$.decision",
+              "Catch": [
+                {"ErrorEquals": ["Rejected"], "ResultPath": "$.error", "Next": "MarkRejected"},
+                {"ErrorEquals": ["States.Timeout"], "ResultPath": "$.error", "Next": "MarkTimedOut"}
+              ],
+              "Next": "SendAlert"
+            },
+            "SendAlert": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::sns:publish",
+              "Parameters": {"TopicArn": "${AlertTopic}", "Subject": "Gaugeless alert (human-approved)",
+                             "Message.$": "States.Format('Site {} discharge {} m3/s. Reason: {}. Approved by {}.', $.site, $.q, $.reason, $.decision.by)"},
+              "ResultPath": null,
+              "Next": "MarkApproved"
+            },
+            "MarkApproved": {
+              "Type": "Task", "Resource": "arn:aws:states:::dynamodb:updateItem",
+              "Parameters": {"TableName": "${ResultsTable}", "Key": {"job_id": {"S.$": "$.job_id"}},
+                             "UpdateExpression": "SET human_decision = :d",
+                             "ExpressionAttributeValues": {":d": {"S": "approved"}}},
+              "End": true
+            },
+            "MarkRejected": {
+              "Type": "Task", "Resource": "arn:aws:states:::dynamodb:updateItem",
+              "Parameters": {"TableName": "${ResultsTable}", "Key": {"job_id": {"S.$": "$.job_id"}},
+                             "UpdateExpression": "SET human_decision = :d",
+                             "ExpressionAttributeValues": {":d": {"S": "rejected"}}},
+              "End": true
+            },
+            "MarkTimedOut": {
+              "Type": "Task", "Resource": "arn:aws:states:::dynamodb:updateItem",
+              "Parameters": {"TableName": "${ResultsTable}", "Key": {"job_id": {"S.$": "$.job_id"}},
+                             "UpdateExpression": "SET human_decision = :d",
+                             "ExpressionAttributeValues": {":d": {"S": "timed_out"}}},
+              "End": true
+            }
+          }
+        }
+
+  # ---------------------------------------------------------------- Graviton worker
+  WorkerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement: [{Effect: Allow, Principal: {Service: ec2.amazonaws.com}, Action: sts:AssumeRole}]
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+        - arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy
+      Policies:
+        - PolicyName: worker
+          PolicyDocument:
+            Statement:
+              - {Effect: Allow, Action: [s3:GetObject, s3:PutObject], Resource: !Sub "${UploadsBucket.Arn}/*"}
+              - {Effect: Allow, Action: s3:ListBucket, Resource: !GetAtt UploadsBucket.Arn}
+              - {Effect: Allow, Action: [sqs:ReceiveMessage, sqs:DeleteMessage, sqs:ChangeMessageVisibility], Resource: !GetAtt JobQueue.Arn}
+              - {Effect: Allow, Action: [dynamodb:PutItem, dynamodb:GetItem, dynamodb:UpdateItem], Resource: !GetAtt ResultsTable.Arn}
+              - {Effect: Allow, Action: states:StartExecution, Resource: !Ref ApprovalMachine}
+              - {Effect: Allow, Action: cloudwatch:PutMetricData, Resource: "*"}
+              - {Effect: Allow, Action: [bedrock:InvokeModel, bedrock:Converse], Resource: "*"}
+  WorkerProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties: {Roles: [!Ref WorkerRole]}
+  WorkerSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Gaugeless worker - egress only (managed through SSM, no inbound ports)
+  Worker:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref WorkerAmi
+      InstanceType: !Ref InstanceType
+      IamInstanceProfile: !Ref WorkerProfile
+      SecurityGroupIds: [!GetAtt WorkerSG.GroupId]
+      MetadataOptions: {HttpTokens: required}
+      BlockDeviceMappings: [{DeviceName: /dev/xvda, Ebs: {VolumeSize: 20, VolumeType: gp3, Encrypted: true}}]
+      Tags: [{Key: Name, Value: gaugeless-worker}]
+      UserData:
+        Fn::Base64: !Sub
+          - |
+            #!/bin/bash
+            set -euxo pipefail
+            # 2 GB instances: add swap so 400-frame clips fit
+            if [ ! -f /swapfile ]; then fallocate -l 4G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile; fi
+            mkdir -p /opt/gaugeless && cd /opt/gaugeless
+            until aws s3 cp s3://${UploadsBucket}/${CodeKey} code.tar.gz; do sleep 30; done   # make upload-code after deploy
+            tar xzf code.tar.gz
+            mkdir -p data/perks && aws s3 sync s3://${UploadsBucket}/data/ data/perks/ --only-show-errors || true
+            if [ "${Cool}" = "true" ] && [ -d /opt/cool/venvs/python_3.12 ]; then
+              PY=/opt/cool/venvs/python_3.12/bin/python     # COOL's optimised OpenCV 5 build
+              $PY -m pip install -q numpy pandas openpyxl scipy boto3 "botocore[crt]"
+            else
+              dnf install -y python3.12 python3.12-pip
+              python3.12 -m venv /opt/gaugeless/venv
+              PY=/opt/gaugeless/venv/bin/python
+              $PY -m pip install -q -r requirements.txt
+            fi
+            cat > /etc/systemd/system/gaugeless.service <<EOF
+            [Unit]
+            Description=Gaugeless worker
+            After=network-online.target
+            [Service]
+            WorkingDirectory=/opt/gaugeless
+            Environment=AWS_REGION=${AWS::Region} AWS_DEFAULT_REGION=${AWS::Region}
+            Environment=GAUGELESS_QUEUE=${JobQueue} GAUGELESS_TABLE=${ResultsTable} GAUGELESS_SFN=${ApprovalMachine} GAUGELESS_PLANNER=${Planner}
+            ExecStart=$PY -m gaugeless.worker
+            Restart=always
+            [Install]
+            WantedBy=multi-user.target
+            EOF
+            systemctl daemon-reload && systemctl enable --now gaugeless
+          - Cool: !If [UseCool, "true", "false"]
+
+  Dashboard:
+    Type: AWS::CloudWatch::Dashboard
+    Properties:
+      DashboardName: gaugeless
+      DashboardBody: !Sub |
+        {"widgets": [
+          {"type": "metric", "width": 12, "properties": {"title": "ms per frame", "region": "${AWS::Region}",
+            "metrics": [["Gaugeless", "MsPerFrame"]], "stat": "Average", "period": 300}},
+          {"type": "metric", "width": 12, "properties": {"title": "agent outcomes", "region": "${AWS::Region}",
+            "metrics": [["Gaugeless", "Outcome", "outcome", "published"], ["...", "refused"], ["...", "escalated"], ["...", "error"]],
+            "stat": "Sum", "period": 3600}}
+        ]}
+
+Outputs:
+  Bucket: {Value: !Ref UploadsBucket}
+  QueueUrl: {Value: !Ref JobQueue}
+  Table: {Value: !Ref ResultsTable}
+  StateMachine: {Value: !Ref ApprovalMachine}
+  ApprovalUrl: {Value: !GetAtt ApprovalUrl.FunctionUrl}
+  WorkerId: {Value: !Ref Worker}

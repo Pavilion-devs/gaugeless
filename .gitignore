@@ -1,0 +1,14 @@
+# environment / build
+.venv/
+dist/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+
+# large inputs (download instructions in README)
+models/
+data/*
+!data/perks/
+data/perks/*
+!data/perks/MANIFEST.tsv

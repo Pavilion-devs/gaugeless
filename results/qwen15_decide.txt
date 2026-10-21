@@ -1,0 +1,14 @@
+  numbers  clean     want measure   got stabilise p=0.87
+  numbers  shake     want stabilise got stabilise p=0.90
+  numbers  unseeded  want refuse    got stabilise p=0.82
+  numbers  dupes     want dedupe    got stabilise p=0.80
+  numbers  flicker   want normalise got stabilise p=0.89
+  numbers  glare     want glare     got stabilise p=0.86
+numbers: 1/6 correct, 3.60s per decision
+  labelled clean     want measure   got dedupe    p=0.45
+  labelled shake     want stabilise got stabilise p=0.99
+  labelled unseeded  want refuse    got stabilise p=0.74
+  labelled dupes     want dedupe    got dedupe    p=0.99
+  labelled flicker   want normalise got glare     p=0.70
+  labelled glare     want glare     got glare     p=0.97
+labelled: 3/6 correct, 1.65s per decision
