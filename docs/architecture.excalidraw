@@ -1,0 +1,1153 @@
+{
+ "type": "excalidraw",
+ "version": 2,
+ "source": "https://excalidraw.com",
+ "elements": [
+  {
+   "type": "text",
+   "id": "g1",
+   "x": 40,
+   "y": 40,
+   "width": 560,
+   "height": 110.0,
+   "text": "GAUGELESS\nAWS ARCHITECTURE",
+   "originalText": "GAUGELESS\nAWS ARCHITECTURE",
+   "fontSize": 44,
+   "fontFamily": 5,
+   "textAlign": "left",
+   "verticalAlign": "top",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "text",
+   "id": "g2",
+   "x": 40,
+   "y": 1400,
+   "width": 470,
+   "height": 180.0,
+   "text": "AGENT MEASURES\nTOOLS ENFORCE\nA HUMAN APPROVES\nEVERY ALERT",
+   "originalText": "AGENT MEASURES\nTOOLS ENFORCE\nA HUMAN APPROVES\nEVERY ALERT",
+   "fontSize": 36,
+   "fontFamily": 5,
+   "textAlign": "left",
+   "verticalAlign": "top",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "rectangle",
+   "id": "g3",
+   "x": 620,
+   "y": 20,
+   "width": 900,
+   "height": 190,
+   "strokeWidth": 1
+  },
+  {
+   "type": "text",
+   "id": "g4",
+   "x": 620,
+   "y": 26,
+   "width": 900,
+   "height": 25.0,
+   "text": "Inputs",
+   "originalText": "Inputs",
+   "fontSize": 20,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "top",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "rectangle",
+   "id": "g5",
+   "x": 660,
+   "y": 60,
+   "width": 380,
+   "height": 120,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "g6"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "g6",
+   "x": 670,
+   "y": 82.5,
+   "width": 360,
+   "height": 75.0,
+   "text": "River camera \u00b7 drone \u00b7 phone\nclip + water polygon\n+ surveyed section",
+   "originalText": "River camera \u00b7 drone \u00b7 phone\nclip + water polygon\n+ surveyed section",
+   "fontSize": 20,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "g5",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "rectangle",
+   "id": "g7",
+   "x": 1100,
+   "y": 60,
+   "width": 380,
+   "height": 120,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "g8"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "g8",
+   "x": 1110,
+   "y": 82.5,
+   "width": 360,
+   "height": 75.0,
+   "text": "Operator\nweb app (live trace)\nor any MCP client",
+   "originalText": "Operator\nweb app (live trace)\nor any MCP client",
+   "fontSize": 20,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "g7",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "rectangle",
+   "id": "g9",
+   "x": 620,
+   "y": 270,
+   "width": 900,
+   "height": 170,
+   "strokeWidth": 1
+  },
+  {
+   "type": "text",
+   "id": "g10",
+   "x": 620,
+   "y": 276,
+   "width": 900,
+   "height": 25.0,
+   "text": "AWS ingest",
+   "originalText": "AWS ingest",
+   "fontSize": 20,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "top",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "rectangle",
+   "id": "g11",
+   "x": 660,
+   "y": 310,
+   "width": 380,
+   "height": 100,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "g12"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "g12",
+   "x": 670,
+   "y": 335.0,
+   "width": 360,
+   "height": 50.0,
+   "text": "S3 uploads\nencrypted \u00b7 30-day expiry",
+   "originalText": "S3 uploads\nencrypted \u00b7 30-day expiry",
+   "fontSize": 20,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "g11",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "rectangle",
+   "id": "g13",
+   "x": 1100,
+   "y": 310,
+   "width": 380,
+   "height": 100,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "g14"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "g14",
+   "x": 1110,
+   "y": 335.0,
+   "width": 360,
+   "height": 50.0,
+   "text": "SQS job queue\n+ dead-letter queue",
+   "originalText": "SQS job queue\n+ dead-letter queue",
+   "fontSize": 20,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "g13",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "arrow",
+   "id": "g15",
+   "x": 850,
+   "y": 180,
+   "width": 0,
+   "height": 130,
+   "roundness": {
+    "type": 2
+   },
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     130
+    ]
+   ],
+   "endArrowhead": "arrow"
+  },
+  {
+   "type": "text",
+   "id": "g16",
+   "x": 870,
+   "y": 230,
+   "width": 340,
+   "height": 22.5,
+   "text": "upload clip + job",
+   "originalText": "upload clip + job",
+   "fontSize": 18,
+   "fontFamily": 5,
+   "textAlign": "left",
+   "verticalAlign": "top",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "arrow",
+   "id": "g17",
+   "x": 1040,
+   "y": 360,
+   "width": 60,
+   "height": 0,
+   "roundness": {
+    "type": 2
+   },
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     60,
+     0
+    ]
+   ],
+   "endArrowhead": "arrow"
+  },
+  {
+   "type": "text",
+   "id": "g18",
+   "x": 980,
+   "y": 412,
+   "width": 180,
+   "height": 20.0,
+   "text": "object created",
+   "originalText": "object created",
+   "fontSize": 16,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "top",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "rectangle",
+   "id": "g19",
+   "x": 20,
+   "y": 500,
+   "width": 1560,
+   "height": 420,
+   "strokeWidth": 1
+  },
+  {
+   "type": "text",
+   "id": "g20",
+   "x": 20,
+   "y": 506,
+   "width": 1560,
+   "height": 25.0,
+   "text": "Graviton worker \u00b7 EC2 t4g (arm64) \u00b7 OpenCV 5.0.0",
+   "originalText": "Graviton worker \u00b7 EC2 t4g (arm64) \u00b7 OpenCV 5.0.0",
+   "fontSize": 20,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "top",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "arrow",
+   "id": "g21",
+   "x": 1290,
+   "y": 410,
+   "width": 0,
+   "height": 140,
+   "roundness": {
+    "type": 2
+   },
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     140
+    ]
+   ],
+   "endArrowhead": "arrow"
+  },
+  {
+   "type": "text",
+   "id": "g22",
+   "x": 1300,
+   "y": 455,
+   "width": 340,
+   "height": 22.5,
+   "text": "job",
+   "originalText": "job",
+   "fontSize": 18,
+   "fontFamily": 5,
+   "textAlign": "left",
+   "verticalAlign": "top",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "rectangle",
+   "id": "g23",
+   "x": 50,
+   "y": 550,
+   "width": 260,
+   "height": 130,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "g24"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "g24",
+   "x": 60,
+   "y": 579.4,
+   "width": 240,
+   "height": 71.2,
+   "text": "Frame QA +\northorectify\ncalibrateCamera \u00b7 remap",
+   "originalText": "Frame QA +\northorectify\ncalibrateCamera \u00b7 remap",
+   "fontSize": 19,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "g23",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "rectangle",
+   "id": "g25",
+   "x": 360,
+   "y": 550,
+   "width": 260,
+   "height": 130,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "g26"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "g26",
+   "x": 370,
+   "y": 579.4,
+   "width": 240,
+   "height": 71.2,
+   "text": "Diagnose\ntracer density \u00b7 shake\nflicker \u00b7 glare",
+   "originalText": "Diagnose\ntracer density \u00b7 shake\nflicker \u00b7 glare",
+   "fontSize": 19,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "g25",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "arrow",
+   "id": "g27",
+   "x": 310,
+   "y": 615,
+   "width": 50,
+   "height": 0,
+   "roundness": {
+    "type": 2
+   },
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     50,
+     0
+    ]
+   ],
+   "endArrowhead": "arrow"
+  },
+  {
+   "type": "rectangle",
+   "id": "g28",
+   "x": 670,
+   "y": 550,
+   "width": 260,
+   "height": 130,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "g29"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "g29",
+   "x": 680,
+   "y": 579.4,
+   "width": 240,
+   "height": 71.2,
+   "text": "Repair\nstabilise (self-checking)\ndedupe \u00b7 glare mask",
+   "originalText": "Repair\nstabilise (self-checking)\ndedupe \u00b7 glare mask",
+   "fontSize": 19,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "g28",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "arrow",
+   "id": "g30",
+   "x": 620,
+   "y": 615,
+   "width": 50,
+   "height": 0,
+   "roundness": {
+    "type": 2
+   },
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     50,
+     0
+    ]
+   ],
+   "endArrowhead": "arrow"
+  },
+  {
+   "type": "rectangle",
+   "id": "g31",
+   "x": 980,
+   "y": 550,
+   "width": 260,
+   "height": 130,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "g32"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "g32",
+   "x": 990,
+   "y": 579.4,
+   "width": 240,
+   "height": 71.2,
+   "text": "Measure\nKLT-IV (PyrLK) \u00b7 LSPIV\nSTIV \u00b7 DIS",
+   "originalText": "Measure\nKLT-IV (PyrLK) \u00b7 LSPIV\nSTIV \u00b7 DIS",
+   "fontSize": 19,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "g31",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "arrow",
+   "id": "g33",
+   "x": 930,
+   "y": 615,
+   "width": 50,
+   "height": 0,
+   "roundness": {
+    "type": 2
+   },
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     50,
+     0
+    ]
+   ],
+   "endArrowhead": "arrow"
+  },
+  {
+   "type": "rectangle",
+   "id": "g34",
+   "x": 1290,
+   "y": 550,
+   "width": 260,
+   "height": 130,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "g35"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "g35",
+   "x": 1300,
+   "y": 579.4,
+   "width": 240,
+   "height": 71.2,
+   "text": "Check\ntwo-section continuity\nFroude \u00b7 coverage",
+   "originalText": "Check\ntwo-section continuity\nFroude \u00b7 coverage",
+   "fontSize": 19,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "g34",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "arrow",
+   "id": "g36",
+   "x": 1240,
+   "y": 615,
+   "width": 50,
+   "height": 0,
+   "roundness": {
+    "type": 2
+   },
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     50,
+     0
+    ]
+   ],
+   "endArrowhead": "arrow"
+  },
+  {
+   "type": "rectangle",
+   "id": "g37",
+   "x": 300,
+   "y": 750,
+   "width": 1000,
+   "height": 140,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "g38"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "g38",
+   "x": 310,
+   "y": 780.6,
+   "width": 980,
+   "height": 78.8,
+   "text": "Agent planner \u00b7 13 tools with guard rails\nrules  \u00b7  Claude on Bedrock  \u00b7  Qwen inside cv2.dnn\nacts only through tools \u00b7 cannot approve itself",
+   "originalText": "Agent planner \u00b7 13 tools with guard rails\nrules  \u00b7  Claude on Bedrock  \u00b7  Qwen inside cv2.dnn\nacts only through tools \u00b7 cannot approve itself",
+   "fontSize": 21,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "g37",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "arrow",
+   "id": "g39",
+   "x": 800,
+   "y": 750,
+   "width": 0,
+   "height": -70,
+   "strokeStyle": "dashed",
+   "roundness": {
+    "type": 2
+   },
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     -70
+    ]
+   ],
+   "endArrowhead": "arrow"
+  },
+  {
+   "type": "text",
+   "id": "g40",
+   "x": 815,
+   "y": 700,
+   "width": 200,
+   "height": 20.0,
+   "text": "calls tools",
+   "originalText": "calls tools",
+   "fontSize": 16,
+   "fontFamily": 5,
+   "textAlign": "left",
+   "verticalAlign": "top",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "rectangle",
+   "id": "g41",
+   "x": 1250,
+   "y": 960,
+   "width": 300,
+   "height": 100,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "g42"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "g42",
+   "x": 1260,
+   "y": 985.0,
+   "width": 280,
+   "height": 50.0,
+   "text": "Amazon Bedrock\nClaude Sonnet 4.5",
+   "originalText": "Amazon Bedrock\nClaude Sonnet 4.5",
+   "fontSize": 20,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "g41",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "arrow",
+   "id": "g43",
+   "x": 1300,
+   "y": 890,
+   "width": 60,
+   "height": 70,
+   "strokeStyle": "dashed",
+   "roundness": {
+    "type": 2
+   },
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     60,
+     70
+    ]
+   ],
+   "endArrowhead": "arrow"
+  },
+  {
+   "type": "rectangle",
+   "id": "g44",
+   "x": 560,
+   "y": 970,
+   "width": 480,
+   "height": 90,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "g45"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "g45",
+   "x": 570,
+   "y": 1000.0,
+   "width": 460,
+   "height": 30.0,
+   "text": "publish  \u00b7  refuse  \u00b7  escalate",
+   "originalText": "publish  \u00b7  refuse  \u00b7  escalate",
+   "fontSize": 24,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "g44",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "arrow",
+   "id": "g46",
+   "x": 800,
+   "y": 890,
+   "width": 0,
+   "height": 80,
+   "roundness": {
+    "type": 2
+   },
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     80
+    ]
+   ],
+   "endArrowhead": "arrow"
+  },
+  {
+   "type": "rectangle",
+   "id": "g47",
+   "x": 40,
+   "y": 1110,
+   "width": 420,
+   "height": 110,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "g48"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "g48",
+   "x": 50,
+   "y": 1129.4,
+   "width": 400,
+   "height": 71.2,
+   "text": "DynamoDB results\n+ CloudWatch metrics & dashboard\n+ budget alarm ($20)",
+   "originalText": "DynamoDB results\n+ CloudWatch metrics & dashboard\n+ budget alarm ($20)",
+   "fontSize": 19,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "g47",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "arrow",
+   "id": "g49",
+   "x": 560,
+   "y": 1015,
+   "width": -260,
+   "height": 95,
+   "roundness": {
+    "type": 2
+   },
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     -260,
+     95
+    ]
+   ],
+   "endArrowhead": "arrow"
+  },
+  {
+   "type": "text",
+   "id": "g50",
+   "x": 300,
+   "y": 1040,
+   "width": 340,
+   "height": 22.5,
+   "text": "every job",
+   "originalText": "every job",
+   "fontSize": 18,
+   "fontFamily": 5,
+   "textAlign": "left",
+   "verticalAlign": "top",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "rectangle",
+   "id": "g51",
+   "x": 560,
+   "y": 1110,
+   "width": 480,
+   "height": 440,
+   "strokeWidth": 1
+  },
+  {
+   "type": "text",
+   "id": "g52",
+   "x": 560,
+   "y": 1116,
+   "width": 480,
+   "height": 25.0,
+   "text": "Human approval boundary",
+   "originalText": "Human approval boundary",
+   "fontSize": 20,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "top",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "rectangle",
+   "id": "g53",
+   "x": 600,
+   "y": 1150,
+   "width": 400,
+   "height": 80,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "g54"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "g54",
+   "x": 610,
+   "y": 1165.0,
+   "width": 380,
+   "height": 50.0,
+   "text": "Step Functions\nwaitForTaskToken",
+   "originalText": "Step Functions\nwaitForTaskToken",
+   "fontSize": 20,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "g53",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "arrow",
+   "id": "g55",
+   "x": 800,
+   "y": 1060,
+   "width": 0,
+   "height": 90,
+   "roundness": {
+    "type": 2
+   },
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     90
+    ]
+   ],
+   "endArrowhead": "arrow"
+  },
+  {
+   "type": "text",
+   "id": "g56",
+   "x": 820,
+   "y": 1070,
+   "width": 340,
+   "height": 22.5,
+   "text": "escalation or flood",
+   "originalText": "escalation or flood",
+   "fontSize": 18,
+   "fontFamily": 5,
+   "textAlign": "left",
+   "verticalAlign": "top",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "rectangle",
+   "id": "g57",
+   "x": 600,
+   "y": 1280,
+   "width": 400,
+   "height": 80,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "g58"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "g58",
+   "x": 610,
+   "y": 1295.0,
+   "width": 380,
+   "height": 50.0,
+   "text": "Lambda \u2192 SNS email\napprove / reject links",
+   "originalText": "Lambda \u2192 SNS email\napprove / reject links",
+   "fontSize": 20,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "g57",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "arrow",
+   "id": "g59",
+   "x": 800,
+   "y": 1230,
+   "width": 0,
+   "height": 50,
+   "roundness": {
+    "type": 2
+   },
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     50
+    ]
+   ],
+   "endArrowhead": "arrow"
+  },
+  {
+   "type": "rectangle",
+   "id": "g60",
+   "x": 600,
+   "y": 1410,
+   "width": 400,
+   "height": 100,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "g61"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "g61",
+   "x": 610,
+   "y": 1435.0,
+   "width": 380,
+   "height": 50.0,
+   "text": "Operator decides\n(Lambda function URL)",
+   "originalText": "Operator decides\n(Lambda function URL)",
+   "fontSize": 20,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "g60",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "arrow",
+   "id": "g62",
+   "x": 800,
+   "y": 1360,
+   "width": 0,
+   "height": 50,
+   "roundness": {
+    "type": 2
+   },
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     50
+    ]
+   ],
+   "endArrowhead": "arrow"
+  },
+  {
+   "type": "arrow",
+   "id": "g63",
+   "x": 600,
+   "y": 1460,
+   "width": -300,
+   "height": -240,
+   "roundness": {
+    "type": 2
+   },
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     -300,
+     -240
+    ]
+   ],
+   "endArrowhead": "arrow"
+  },
+  {
+   "type": "text",
+   "id": "g64",
+   "x": 230,
+   "y": 1330,
+   "width": 340,
+   "height": 45.0,
+   "text": "decision recorded\nreject = no alert",
+   "originalText": "decision recorded\nreject = no alert",
+   "fontSize": 18,
+   "fontFamily": 5,
+   "textAlign": "left",
+   "verticalAlign": "top",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "rectangle",
+   "id": "g65",
+   "x": 600,
+   "y": 1610,
+   "width": 400,
+   "height": 90,
+   "boundElements": [
+    {
+     "type": "text",
+     "id": "g66"
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "id": "g66",
+   "x": 610,
+   "y": 1630.0,
+   "width": 380,
+   "height": 50.0,
+   "text": "SNS flood alert\nonly if a human approved",
+   "originalText": "SNS flood alert\nonly if a human approved",
+   "fontSize": 20,
+   "fontFamily": 5,
+   "textAlign": "center",
+   "verticalAlign": "middle",
+   "containerId": "g65",
+   "autoResize": false,
+   "lineHeight": 1.2
+  },
+  {
+   "type": "arrow",
+   "id": "g67",
+   "x": 800,
+   "y": 1510,
+   "width": 0,
+   "height": 100,
+   "roundness": {
+    "type": 2
+   },
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     100
+    ]
+   ],
+   "endArrowhead": "arrow"
+  },
+  {
+   "type": "text",
+   "id": "g68",
+   "x": 820,
+   "y": 1545,
+   "width": 340,
+   "height": 22.5,
+   "text": "approved",
+   "originalText": "approved",
+   "fontSize": 18,
+   "fontFamily": 5,
+   "textAlign": "left",
+   "verticalAlign": "top",
+   "autoResize": false,
+   "lineHeight": 1.2
+  }
+ ],
+ "appState": {
+  "theme": "dark",
+  "viewBackgroundColor": "#ffffff"
+ },
+ "files": {}
+}
