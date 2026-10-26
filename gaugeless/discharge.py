@@ -24,6 +24,7 @@ import numpy as np
 from . import methods as M
 
 ALPHA, ALPHA_SD = 0.85, 0.07
+trapezoid = getattr(np, "trapezoid", None) or np.trapz   # numpy < 2 (COOL's Python env ships numpy 1.26)
 
 
 @dataclass
@@ -49,7 +50,7 @@ class Section:
 
     @property
     def area(self):
-        return float(np.trapezoid(self.depth, self.station))
+        return float(trapezoid(self.depth, self.station))
 
 
 @dataclass
@@ -99,8 +100,8 @@ def discharge(fld: M.VectorField, sec: Section, alpha=ALPHA, alpha_sd=ALPHA_SD, 
     u_full = np.where(measured, u, k * w23)
     x = sec.station
     q_unit = alpha * u_full * h                  # m²/s per vertical
-    q = float(np.trapezoid(q_unit, x))
-    q_meas = float(np.trapezoid(np.where(measured, q_unit, 0), x))
+    q = float(trapezoid(q_unit, x))
+    q_meas = float(trapezoid(np.where(measured, q_unit, 0), x))
     share = q_meas / q if q > 0 else 0.0
     # uncertainty: α dominates; filled verticals add ±30 % of their contribution; sampling spread of measured ones
     filled = q - q_meas

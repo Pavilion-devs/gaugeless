@@ -1,0 +1,11 @@
++ bash -c 'source /opt/cool/venvs/python_3.12/bin/activate && cd /opt/g && python -m gaugeless.agent.run arrow_uas_seeded lamorge lavence noce arrow_uas_unseeded --quiet --out results/agent_cool.jsonl'
+== arrow_uas_seeded (rules)
+  => {'case': 'arrow_uas_seeded', 'outcome': 'published', 'steps': 5, 'surface': 14.7, 'surface_highconf': 15.0, 'planner': 'rules', 'seconds': 15.1, 'llm_usage': None}
+== lamorge (rules)
+  => {'case': 'lamorge', 'outcome': 'published', 'steps': 5, 'q': 1.3158, 'q_passed': True, 'q_ref': 1.3214, 'q_err': -0.0043, 'planner': 'rules', 'seconds': 25.2, 'llm_usage': None}
+== lavence (rules)
+  => {'case': 'lavence', 'outcome': 'published', 'steps': 8, 'depth_avg': 14.9, 'depth_avg_highconf': {'n': 0, 'coverage': 0.0, 'mape': None, 'bias': None, 'rmse': None}, 'q': 1.0576, 'q_passed': True, 'q_ref': 1.1787, 'q_err': -0.1027, 'planner': 'rules', 'seconds': 28.0, 'llm_usage': None}
+== noce (rules)
+  => {'case': 'noce', 'outcome': 'published', 'steps': 7, 'surface': 17.0, 'surface_highconf': 10.7, 'planner': 'rules', 'seconds': 38.2, 'llm_usage': None}
+== arrow_uas_unseeded (rules)
+  => {'case': 'arrow_uas_unseeded', 'outcome': 'refused', 'steps': 3, 'planner': 'rules', 'seconds': 5.7, 'llm_usage': None}

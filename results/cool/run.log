@@ -1,0 +1,12 @@
++ cd /opt/g
++ CASES='arrow_uas_seeded lamorge lavence noce'
++ STOCK=/opt/g/stock/bin/python
++ /opt/g/stock/bin/python -m pytest -q tests
++ cool python -m pytest -q tests
++ /opt/g/stock/bin/python -m bench.bench --cases arrow_uas_seeded lamorge lavence noce --repeat 5 --out results/bench_stock_a.json
++ cool python -m bench.bench --cases arrow_uas_seeded lamorge lavence noce --repeat 5 --out results/bench_cool_a.json
++ cool python -m bench.bench --cases arrow_uas_seeded lamorge lavence noce --repeat 5 --out results/bench_cool_b.json
++ /opt/g/stock/bin/python -m bench.bench --cases arrow_uas_seeded lamorge lavence noce --repeat 5 --out results/bench_stock_b.json
++ /opt/g/stock/bin/python -m gaugeless.agent.run arrow_uas_seeded lamorge lavence noce arrow_uas_unseeded --quiet --out results/agent_stock.jsonl
++ cool python -m gaugeless.agent.run arrow_uas_seeded lamorge lavence noce arrow_uas_unseeded --quiet --out results/agent_cool.jsonl
++ aws s3 sync results s3://gaugeless-843897427507-us-east-1/bench/ --only-show-errors

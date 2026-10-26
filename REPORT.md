@@ -206,7 +206,26 @@ without measuring the gauge points. The tool refused, and that check is now a pe
 | La Morge, flood threshold 1.0 m³/s | **escalated** → approval email → human *rejected* → recorded, **no alert sent** | 53 s |
 | La Morge, flood threshold 1.0 m³/s | **escalated** → approval email → human *approved* → SNS alert sent → recorded | 53 s |
 
-### 5.6 Mistakes the evaluation caught (and the fixes)
+### 5.6 COOL vs stock OpenCV on Graviton3
+
+Same code and machine (c7g.large), interleaved runs (stock, COOL, COOL, stock), 5 repeats, 4 rivers, medians.
+Stock is OpenCV 5.0.0 from pip; COOL is the Cloud-Optimized OpenCV Library AMI (`ami-0c0803594d6330678`, OpenCV
+4.12.0, `-mcpu=neoverse-v1`, LTO, TBB, KleidiCV).
+
+| Stage | Speed-up with COOL (geometric mean) |
+|---|---|
+| Agent end to end | **1.16×** (La Morge 29.2 → 25.1 s, Noce 43.9 → 38.2 s) |
+| KLT (`calcOpticalFlowPyrLK`) | 1.18× |
+| Stabilisation | 1.10× |
+| DIS | 0.99× |
+| LSPIV (`matchTemplate`) | 0.97× |
+| STIV | 0.75× (slower) |
+
+The agent made the same decisions on all 5 clips. La Morge discharge is identical (1.3158 m³/s) and La Vence
+differs by 0.06%. Noce's surface error moves from 14.4% to 17.0% because KLT output differs between versions. All
+25 tests pass under COOL. Raw data: `results/cool/`; table: `python -m bench.compare`.
+
+### 5.7 Mistakes the evaluation caught (and the fixes)
 
 1. Filling coverage gaps with LSPIV made three rivers worse (Bradano 9% → 64%). Replaced with a wide-radius KLT
    fill flagged as low-confidence.
@@ -229,7 +248,7 @@ without measuring the gauge points. The tool refused, and that check is now a pe
 - **Discharge needs a surveyed cross-section.** Without one, Gaugeless reports surface velocity only.
 - **α = 0.85 is assumed.** It's the standard value (Perks 2025 measured 0.87 ± 0.07), but sites differ.
 - **Evaluation is on one dataset.** 14 clips from 7 countries, short clips (48–600 frames), no night or rain footage.
-- **No COOL benchmark.** The AWS account is on the free plan, which can't subscribe to Marketplace products.
+- **COOL is OpenCV 4.12**, so the §5.6 speed-up mixes COOL's build with the 4.12 → 5.0 version difference.
 - Damage in §5.3 is simulated on real clips; real-world shake and glare can differ.
 
 ## 7. Responsible use

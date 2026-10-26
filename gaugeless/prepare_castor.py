@@ -18,6 +18,8 @@ import pandas as pd
 from . import ortho as O
 from .refs import ROOT, load, _sheet, _num
 
+trapezoid = getattr(np, "trapezoid", None) or np.trapz   # numpy < 2
+
 SRC = os.path.join(ROOT, "CastorRiver/20190410/Video1")
 OUT = os.path.join(os.path.dirname(ROOT), "derived", "castor_v1")
 STAGE = 3.772      # m, readme
@@ -48,7 +50,7 @@ def castor_section(A):
         k = np.polyfit(a[ok, 2], a[ok, c], 1)
         a[~ok, c] = np.polyval(k, a[~ok, 2])
     px = cv2.transform(a[:, :2].astype(np.float32)[None], A)[0]
-    q = float(np.trapezoid(a[:, 4] * a[:, 3], a[:, 2]))
+    q = float(trapezoid(a[:, 4] * a[:, 3], a[:, 2]))
     return px, a[:, 2] - a[0, 2], a[:, 3], a[:, 4], q
 
 

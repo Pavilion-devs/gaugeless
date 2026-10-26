@@ -4,7 +4,7 @@ REGION ?= us-east-1
 BUCKET = gaugeless-$(shell aws sts get-caller-identity --query Account --output text)-$(REGION)
 DEMO_SITES = LaMorgeRiver RiverArrow/Stabilised/UAS_stable_trans_seeded RiverArrow/Stabilised/UAS_stable_trans_unseeded RiverArrow/Reference RiverLaVence RiverNoce
 
-.PHONY: test baseline agent degrade eval package deploy upload-code upload-demo-data submit-demo
+.PHONY: test baseline agent degrade eval package deploy upload-code upload-demo-data submit-demo web-up
 
 test:            ## unit tests (synthetic, no dataset needed)
 	$(PY) -m pytest -q tests
@@ -37,3 +37,6 @@ deploy:          ## make deploy EMAIL=you@example.com
 submit-demo:     ## queue a dataset site as a job
 	echo '{"job_id":"demo-$(shell date +%s)","site":"$(SITE)","flood_q":$(or $(FLOOD),null)}' > /tmp/job.json && \
 	aws s3 cp /tmp/job.json s3://$(BUCKET)/uploads/demo-$(shell date +%s).json
+
+web-up: upload-code   ## public demo web app on the Graviton worker, port 80 (URL: stack output WebUrl)
+	STACK=$(STACK) REGION=$(REGION) BUCKET=$(BUCKET) sh infra/web-up.sh

@@ -1,0 +1,25 @@
+{"case": "arrow_uas_seeded", "stage": "klt", "frames": 60, "size": "464x505", "seconds": 5.7512, "ms_per_frame": 95.854, "x_realtime": 2.09}
+{"case": "arrow_uas_seeded", "stage": "lspiv", "frames": 60, "size": "464x505", "seconds": 0.2156, "ms_per_frame": 3.594, "x_realtime": 55.65}
+{"case": "arrow_uas_seeded", "stage": "stiv", "frames": 60, "size": "464x505", "seconds": 0.0613, "ms_per_frame": 1.021, "x_realtime": 195.87}
+{"case": "arrow_uas_seeded", "stage": "dis", "frames": 60, "size": "464x505", "seconds": 0.9229, "ms_per_frame": 15.382, "x_realtime": 13.0}
+{"case": "arrow_uas_seeded", "stage": "stabilise", "frames": 60, "size": "464x505", "seconds": 0.5344, "ms_per_frame": 8.907, "x_realtime": 22.45}
+{"case": "arrow_uas_seeded", "stage": "agent_end_to_end", "seconds": 17.637, "video_seconds": 19.8, "x_realtime": 1.12}
+{"case": "lamorge", "stage": "klt", "frames": 48, "size": "1550x950", "seconds": 11.6335, "ms_per_frame": 242.364, "x_realtime": 0.83}
+{"case": "lamorge", "stage": "lspiv", "frames": 48, "size": "1550x950", "seconds": 1.104, "ms_per_frame": 23.001, "x_realtime": 8.7}
+{"case": "lamorge", "stage": "stiv", "frames": 48, "size": "1550x950", "seconds": 0.1352, "ms_per_frame": 2.817, "x_realtime": 70.99}
+{"case": "lamorge", "stage": "dis", "frames": 48, "size": "1550x950", "seconds": 1.8435, "ms_per_frame": 38.406, "x_realtime": 5.21}
+{"case": "lamorge", "stage": "stabilise", "frames": 48, "size": "1550x950", "seconds": 0.7289, "ms_per_frame": 15.185, "x_realtime": 13.17}
+{"case": "lamorge", "stage": "agent_end_to_end", "seconds": 29.161, "video_seconds": 9.6, "x_realtime": 0.33}
+{"case": "lavence", "stage": "klt", "frames": 60, "size": "320x755", "seconds": 6.9543, "ms_per_frame": 115.905, "x_realtime": 0.29}
+{"case": "lavence", "stage": "lspiv", "frames": 60, "size": "320x755", "seconds": 0.2159, "ms_per_frame": 3.598, "x_realtime": 9.27}
+{"case": "lavence", "stage": "stiv", "frames": 60, "size": "320x755", "seconds": 0.0611, "ms_per_frame": 1.018, "x_realtime": 32.73}
+{"case": "lavence", "stage": "dis", "frames": 60, "size": "320x755", "seconds": 1.0194, "ms_per_frame": 16.99, "x_realtime": 1.96}
+{"case": "lavence", "stage": "stabilise", "frames": 60, "size": "320x755", "seconds": 0.265, "ms_per_frame": 4.417, "x_realtime": 7.55}
+{"case": "lavence", "stage": "agent_end_to_end", "seconds": 32.29, "video_seconds": 5.0, "x_realtime": 0.15}
+{"case": "noce", "stage": "klt", "frames": 60, "size": "1920x1080", "seconds": 13.7837, "ms_per_frame": 229.729, "x_realtime": 0.36}
+{"case": "noce", "stage": "lspiv", "frames": 60, "size": "1920x1080", "seconds": 0.7032, "ms_per_frame": 11.72, "x_realtime": 7.11}
+{"case": "noce", "stage": "stiv", "frames": 60, "size": "1920x1080", "seconds": 0.1945, "ms_per_frame": 3.241, "x_realtime": 25.71}
+{"case": "noce", "stage": "dis", "frames": 60, "size": "1920x1080", "seconds": 1.8873, "ms_per_frame": 31.456, "x_realtime": 2.65}
+{"case": "noce", "stage": "stabilise", "frames": 60, "size": "1920x1080", "seconds": 1.3696, "ms_per_frame": 22.826, "x_realtime": 3.65}
+{"case": "noce", "stage": "agent_end_to_end", "seconds": 43.904, "video_seconds": 5.8, "x_realtime": 0.13}
+wrote results/bench_stock_a.json

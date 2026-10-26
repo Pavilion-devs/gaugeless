@@ -4,172 +4,458 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gaugeless</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f6f7f4; --panel:#ffffff; --ink:#15211d; --muted:#5d6b66; --line:#dde3df;
-  --accent:#0f7b6c; --accent-soft:#dff1ed; --warn:#b26a00; --warn-soft:#fff2dc;
-  --bad:#b3261e; --bad-soft:#fde7e5; --ok:#1f7a3a; --ok-soft:#e3f4e8; --code:#eef1ef;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#0f1513; --panel:#161e1b; --ink:#e4ece8; --muted:#93a39c; --line:#26322e;
-    --accent:#3fc1ad; --accent-soft:#163631; --warn:#f0b357; --warn-soft:#3a2c14;
-    --bad:#ff8a80; --bad-soft:#3d1c1a; --ok:#6fd38c; --ok-soft:#173222; --code:#1d2724;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#0f1513; --panel:#161e1b; --ink:#e4ece8; --muted:#93a39c; --line:#26322e;
-  --accent:#3fc1ad; --accent-soft:#163631; --warn:#f0b357; --warn-soft:#3a2c14;
-  --bad:#ff8a80; --bad-soft:#3d1c1a; --ok:#6fd38c; --ok-soft:#173222; --code:#1d2724;
+  --bg:#080b10; --panel:#0f141b; --panel-2:#141b24; --raise:#18212c; --line:#1f2935; --line-2:#2a3644;
+  --ink:#e7eef5; --muted:#8696a7; --faint:#5b6b7c;
+  --accent:#22d3ee; --accent-ink:#04141a; --accent-soft:rgba(34,211,238,.12);
+  --ok:#34d399; --ok-soft:rgba(52,211,153,.12);
+  --warn:#fbbf24; --warn-soft:rgba(251,191,36,.12);
+  --bad:#f87171; --bad-soft:rgba(248,113,113,.12);
+  --repair:#a78bfa; --repair-soft:rgba(167,139,250,.14);
+  --sans:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
-header{padding:20px 24px 8px;max-width:1280px;margin:0 auto}
-h1{font-size:22px;margin:0;letter-spacing:-.01em}
-header p{margin:4px 0 0;color:var(--muted);max-width:760px}
-main{display:grid;grid-template-columns:minmax(300px,380px) 1fr;gap:16px;padding:16px 24px 32px;max-width:1280px;margin:0 auto}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
-label{display:block;font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin:12px 0 4px}
-select,input{width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
-.row{display:flex;gap:8px}.row>*{flex:1}
-button{margin-top:16px;width:100%;padding:10px 14px;border:0;border-radius:8px;background:var(--accent);color:#fff;font:600 15px/1 inherit;cursor:pointer}
-button:disabled{opacity:.5;cursor:default}
-button.secondary{background:var(--warn)}
-.hint{font-size:13px;color:var(--muted);margin-top:8px}
-#steps{list-style:none;margin:0;padding:0;max-height:62vh;overflow:auto}
-#steps li{border-left:3px solid var(--line);padding:6px 0 8px 12px;margin-left:4px}
-#steps li.repair{border-color:var(--accent)}
-#steps li.stop{border-color:var(--bad)}
-#steps li.human{border-color:var(--warn)}
-#steps li.pub{border-color:var(--ok)}
-.tool{font:600 13px ui-monospace,SFMono-Regular,Menlo,monospace}
-.why{font-size:13px;color:var(--muted);margin-top:2px}
-.ms{float:right;font-size:12px;color:var(--muted)}
-.view{display:flex;flex-direction:column;gap:16px}
-#img{width:100%;border-radius:8px;background:var(--code);min-height:240px;display:block}
-.result{display:flex;gap:12px;flex-wrap:wrap}
-.metric{flex:1;min-width:140px;padding:12px;border-radius:10px;background:var(--code)}
-.metric b{display:block;font-size:22px}
-.metric span{font-size:12px;color:var(--muted)}
-.banner{padding:12px 14px;border-radius:10px;font-weight:600}
-.banner.ok{background:var(--ok-soft);color:var(--ok)}
-.banner.bad{background:var(--bad-soft);color:var(--bad)}
-.banner.warn{background:var(--warn-soft);color:var(--warn)}
-.banner small{display:block;font-weight:400;color:var(--ink);margin-top:4px}
-.legend{font-size:12px;color:var(--muted)}
-.empty{color:var(--muted);font-size:14px;padding:24px 0;text-align:center}
-@media (max-width:820px){main{grid-template-columns:1fr;padding:12px 16px}header{padding:16px 16px 4px}}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+button,select,input{font:inherit;color:inherit}
+.mono{font-family:var(--mono)}
+
+/* ---------- shell ---------- */
+.app{display:grid;grid-template-columns:288px 1fr;grid-template-rows:56px 1fr;height:100vh}
+.top{grid-column:1/-1;display:flex;align-items:center;gap:16px;padding:0 20px;border-bottom:1px solid var(--line);background:var(--panel)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;letter-spacing:-.01em}
+.brand svg{flex:none}
+.tag{color:var(--muted);font-size:13px;padding-left:16px;border-left:1px solid var(--line)}
+.top .spacer{flex:1}
+.chip{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border:1px solid var(--line-2);border-radius:999px;font:500 12px var(--mono);color:var(--muted);white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--faint)}
+.chip.live .dot{background:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);animation:pulse 1.2s infinite}
+.chip.ok{color:var(--ok);border-color:rgba(52,211,153,.35)} .chip.ok .dot{background:var(--ok)}
+.chip.warn{color:var(--warn);border-color:rgba(251,191,36,.35)} .chip.warn .dot{background:var(--warn)}
+.chip.bad{color:var(--bad);border-color:rgba(248,113,113,.35)} .chip.bad .dot{background:var(--bad)}
+@keyframes pulse{50%{opacity:.35}}
+
+/* ---------- sidebar ---------- */
+.side{border-right:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column;min-height:0}
+.side h2{margin:0;padding:16px 20px 8px;font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.sites{list-style:none;margin:0;padding:0 10px 16px;overflow:auto;flex:1}
+.site{display:block;width:100%;text-align:left;background:none;border:1px solid transparent;border-radius:10px;padding:9px 10px;cursor:pointer;margin-bottom:2px}
+.site:hover{background:var(--panel-2)}
+.site[aria-pressed="true"]{background:var(--raise);border-color:var(--line-2)}
+.site .n{display:flex;align-items:center;gap:8px;font-weight:600;font-size:13.5px}
+.site .m{color:var(--muted);font-size:12px;margin-top:1px}
+.badge{font:600 10px var(--mono);letter-spacing:.02em;padding:1px 6px;border-radius:5px;background:var(--accent-soft);color:var(--accent)}
+.badge.ref{background:rgba(134,150,167,.12);color:var(--muted)}
+.side .foot{padding:12px 20px;border-top:1px solid var(--line);color:var(--faint);font-size:11.5px;line-height:1.45}
+
+/* ---------- main ---------- */
+.main{overflow:auto;padding:16px 20px 24px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px}
+.card-h{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.card-h h3{margin:0;font-size:13px;font-weight:600}
+.card-h .sub{color:var(--muted);font-size:12px}
+.card-h .spacer{flex:1}
+
+/* controls */
+.controls{display:flex;flex-wrap:wrap;align-items:flex-end;gap:18px;padding:14px 16px}
+.ctl label{display:block;font:600 11px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.seg{display:inline-flex;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px}
+.seg button{border:0;background:none;padding:6px 11px;border-radius:7px;cursor:pointer;color:var(--muted);font-size:13px;font-weight:500}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--raise);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line-2)}
+.seg button:disabled{opacity:.35;cursor:default}
+.num{width:120px;height:36px;padding:0 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);font-family:var(--mono);font-size:13px}
+.num:focus,.seg button:focus-visible,.btn:focus-visible,.site:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ctl.grow{flex:1}
+.btn{height:38px;padding:0 18px;border-radius:10px;border:0;cursor:pointer;font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn:disabled{opacity:.5;cursor:default}
+.btn.approve{background:var(--ok);color:#04150e}
+.btn.reject{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line-2)}
+
+/* layout grid */
+.grid{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(320px,1fr);gap:14px;align-items:start}
+.col{display:flex;flex-direction:column;gap:14px;min-width:0}
+
+/* viewer */
+.viewer{position:relative;margin:12px;border-radius:10px;overflow:hidden;background:#05070a;aspect-ratio:16/9;max-height:calc(100vh - 520px);min-height:260px;width:auto}
+.viewer img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .25s}
+.viewer img.on{opacity:1}
+.viewer .empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--faint);font-size:13px}
+.viewer .chips{position:absolute;left:10px;top:10px;display:flex;flex-wrap:wrap;gap:6px;max-width:calc(100% - 20px)}
+.viewer .chips .chip{background:rgba(8,11,16,.78);backdrop-filter:blur(4px);color:var(--ink)}
+.viewer .chips .chip.flag{color:var(--warn);border-color:rgba(251,191,36,.45)}
+.viewer .scan{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 0,var(--accent-soft) 50%,transparent 100%);height:30%;opacity:0;animation:scan 1.6s linear infinite}
+.viewer.busy .scan{opacity:1}
+@keyframes scan{from{transform:translateY(-100%)}to{transform:translateY(340%)}}
+.legend{display:flex;flex-wrap:wrap;gap:14px;padding:0 16px 12px;color:var(--muted);font-size:12px}
+.legend i{display:inline-block;vertical-align:middle;margin-right:6px}
+.ramp{width:44px;height:6px;border-radius:3px;background:linear-gradient(90deg,#30123b,#4686fb,#1ae4b6,#a2fc3c,#fabb39,#e4460a,#7a0403)}
+.line-y{width:16px;height:3px;background:#ffff00;border-radius:2px}
+.ring{width:9px;height:9px;border-radius:50%;border:1.5px solid #fff}
+
+/* decision */
+.decision{display:flex;align-items:center;gap:14px;padding:16px;border-radius:14px;border:1px solid var(--line);background:var(--panel)}
+.decision .ico{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;flex:none;background:var(--panel-2);color:var(--muted)}
+.decision .t{font-weight:700;font-size:16px}
+.decision .d{color:var(--muted);font-size:13px;margin-top:1px}
+.decision .acts{margin-left:auto;display:flex;gap:8px}
+.decision.ok{border-color:rgba(52,211,153,.35);background:linear-gradient(90deg,var(--ok-soft),var(--panel) 60%)} .decision.ok .ico{background:var(--ok-soft);color:var(--ok)}
+.decision.bad{border-color:rgba(248,113,113,.35);background:linear-gradient(90deg,var(--bad-soft),var(--panel) 60%)} .decision.bad .ico{background:var(--bad-soft);color:var(--bad)}
+.decision.warn{border-color:rgba(251,191,36,.4);background:linear-gradient(90deg,var(--warn-soft),var(--panel) 60%)} .decision.warn .ico{background:var(--warn-soft);color:var(--warn)}
+.decision.live .ico{color:var(--accent);background:var(--accent-soft)}
+
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.kpi{padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--panel);min-width:0}
+.kpi .l{font:600 11px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.kpi .v{font:600 clamp(18px,1.5vw,24px)/1.2 var(--mono);margin-top:8px;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi .v small{font-size:13px;color:var(--muted);font-weight:500;margin-left:4px}
+.kpi .s{color:var(--muted);font-size:12px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi .v.good{color:var(--ok)} .kpi .v.mid{color:var(--warn)} .kpi .v.badv{color:var(--bad)}
+
+/* trace */
+.trace{position:sticky;top:0;display:flex;flex-direction:column;max-height:calc(100vh - 56px - 32px)}
+.phases{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.ph{text-align:center;font-size:11px;color:var(--faint);font-weight:600;letter-spacing:.02em}
+.ph .bar{height:4px;border-radius:2px;background:var(--line);margin-bottom:7px;transition:background .3s}
+.ph.done{color:var(--ink)} .ph.done .bar{background:var(--accent)}
+.ph.active{color:var(--accent)} .ph.active .bar{background:var(--accent);animation:pulse 1s infinite}
+.ph.skip{color:var(--faint)} .ph.skip .bar{background:repeating-linear-gradient(90deg,var(--line-2) 0 4px,transparent 4px 7px)}
+.ph.repair.done .bar{background:var(--repair)} .ph.repair.done{color:var(--repair)}
+.ph.stop .bar{background:var(--bad)} .ph.stop{color:var(--bad)}
+.ph.hold .bar{background:var(--warn)} .ph.hold{color:var(--warn)}
+.steps{list-style:none;margin:0;padding:8px 16px 16px;overflow:auto;flex:1}
+.steps .empty{color:var(--faint);text-align:center;padding:40px 8px;font-size:13px}
+.st{position:relative;padding:10px 0 10px 26px;border-bottom:1px dashed var(--line);animation:in .25s ease-out}
+.st:last-child{border-bottom:0}
+@keyframes in{from{opacity:0;transform:translateY(4px)}}
+.st::before{content:"";position:absolute;left:4px;top:15px;width:9px;height:9px;border-radius:50%;background:var(--faint);box-shadow:0 0 0 3px var(--panel)}
+.st.perceive::before{background:var(--accent)}
+.st.repair::before{background:var(--repair)}
+.st.measure::before{background:#60a5fa}
+.st.check::before{background:#60a5fa}
+.st.pub::before{background:var(--ok)}
+.st.stop::before{background:var(--bad)}
+.st.human::before{background:var(--warn)}
+.st .h{display:flex;align-items:baseline;gap:8px}
+.st .tool{font:600 12.5px var(--mono)}
+.st .ph-l{font:600 10px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.st .ms{margin-left:auto;font:12px var(--mono);color:var(--faint)}
+.st .why{color:var(--muted);font-size:12.5px;margin-top:3px}
+.st .why b{color:var(--ink);font-weight:600}
+.st.repair .why b{color:var(--repair)}
+.st.stop .why b{color:var(--bad)}
+.st.claude{background:var(--accent-soft);border:1px solid rgba(34,211,238,.2);border-radius:10px;padding:10px 12px;margin:8px 0}
+.st.claude::before{display:none}
+.st.claude .why{color:var(--ink)}
+
+@media (max-width:1100px){
+  .app{grid-template-columns:1fr;grid-template-rows:auto auto 1fr;height:auto}
+  .side{border-right:0;border-bottom:1px solid var(--line)}
+  .sites{display:flex;gap:6px;overflow-x:auto;padding:0 12px 12px}
+  .site{flex:none;width:auto}
+  .side .foot{display:none}
+  .grid{grid-template-columns:1fr}
+  .trace{position:static;max-height:none}
+  .main{overflow:visible}
+}
+@media (max-width:640px){
+  .top{padding:0 16px}.tag{display:none}
+  .main{padding:12px 16px 20px}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .decision{flex-wrap:wrap}.decision .acts{margin-left:0;width:100%}.decision .acts .btn{flex:1;justify-content:center}
+}
 </style>
 </head>
 <body>
-<header>
-  <h1>Gaugeless</h1>
-  <p>River discharge from video for rivers nobody gauges. The agent diagnoses the clip, repairs what it can,
-  measures with OpenCV&nbsp;5, checks the physics, and refuses or asks a human when the number can't be trusted.</p>
-</header>
-<main>
-  <section class="card">
-    <label for="site">River</label>
-    <select id="site"></select>
-    <div class="hint" id="siteinfo"></div>
-    <label for="deg">Damage the clip (to test the agent)</label>
-    <div class="row">
-      <select id="deg"><option value="none">none</option></select>
-      <select id="lvl"></select>
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect width="26" height="26" rx="7" fill="#22d3ee"/><path d="M5 15c2.2-2.4 4.4-2.4 6.6 0s4.4 2.4 6.6 0M5 10c2.2-2.4 4.4-2.4 6.6 0s4.4 2.4 6.6 0" fill="none" stroke="#04141a" stroke-width="2.2" stroke-linecap="round"/><path d="M20.5 5.5v15" stroke="#04141a" stroke-width="2.2" stroke-linecap="round"/></svg>
+      Gaugeless
     </div>
-    <div class="row">
-      <div><label for="planner">Planner</label>
-        <select id="planner"><option value="rules">rules</option><option value="claude">Claude (Bedrock)</option></select></div>
-      <div><label for="flood">Flood alert at (m³/s)</label><input id="flood" type="number" step="0.1" placeholder="none"></div>
+    <div class="tag">River discharge from video, for rivers nobody gauges</div>
+    <div class="spacer"></div>
+    <span class="chip" id="cvchip"><span class="dot"></span><span id="cvver">OpenCV</span></span>
+    <span class="chip" id="status"><span class="dot"></span><span id="statustxt">Idle</span></span>
+  </header>
+
+  <aside class="side">
+    <h2>Rivers</h2>
+    <ul class="sites" id="sites"></ul>
+    <div class="foot">Real clips from Perks et al. (2020), 7 countries, scored against in-river current meters, ADCP and radar.</div>
+  </aside>
+
+  <main class="main">
+    <section class="card">
+      <div class="controls">
+        <div class="ctl">
+          <label>Damage the clip</label>
+          <div class="seg" id="deg"></div>
+        </div>
+        <div class="ctl">
+          <label>Strength</label>
+          <div class="seg" id="lvl"></div>
+        </div>
+        <div class="ctl">
+          <label>Planner</label>
+          <div class="seg" id="planner">
+            <button data-v="rules" aria-pressed="true">Rules</button>
+            <button data-v="claude" aria-pressed="false">Claude · Bedrock</button>
+          </div>
+        </div>
+        <div class="ctl">
+          <label for="flood">Flood alert at</label>
+          <input class="num" id="flood" type="number" step="0.1" min="0" placeholder="off  m³/s">
+        </div>
+        <div class="ctl grow" style="text-align:right">
+          <button class="btn primary" id="go">
+            <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.8v10.4L12 7z" fill="currentColor"/></svg>
+            Run agent
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid">
+      <div class="col">
+        <section class="card">
+          <div class="card-h">
+            <h3 id="vtitle">River</h3><span class="sub" id="vsub"></span>
+          </div>
+          <div class="viewer" id="viewer">
+            <img id="img" alt="">
+            <div class="empty" id="vempty">Loading frame…</div>
+            <div class="chips" id="vchips"></div>
+            <div class="scan"></div>
+          </div>
+          <div class="legend">
+            <span><i class="ramp"></i>surface velocity, slow → fast (arrows ×4)</span>
+            <span><i class="line-y"></i>surveyed cross-sections</span>
+            <span><i class="ring"></i>gauge point (red ring = low confidence)</span>
+          </div>
+        </section>
+
+        <section class="decision" id="decision">
+          <div class="ico" id="dico"></div>
+          <div><div class="t" id="dt">Ready</div><div class="d" id="dd">Pick a river, optionally damage the clip, and run the agent.</div></div>
+          <div class="acts" id="dacts" hidden>
+            <button class="btn reject" id="reject">Reject</button>
+            <button class="btn approve" id="approve">Approve alert</button>
+          </div>
+        </section>
+
+        <section class="kpis">
+          <div class="kpi"><div class="l">Discharge</div><div class="v" id="k1">—</div><div class="s" id="k1s">m³/s at surveyed sections</div></div>
+          <div class="kpi"><div class="l">Vs reference</div><div class="v" id="k2">—</div><div class="s" id="k2s">current meter / ADCP</div></div>
+          <div class="kpi"><div class="l">Surface velocity</div><div class="v" id="k3">—</div><div class="s" id="k3s">median, OpenCV tracking</div></div>
+          <div class="kpi"><div class="l">Camera motion</div><div class="v" id="k4">—</div><div class="s" id="k4s">before → after repair</div></div>
+        </section>
+      </div>
+
+      <section class="card trace">
+        <div class="card-h">
+          <h3>Agent trace</h3><span class="sub" id="tsub">perception → decision → action</span>
+          <div class="spacer"></div><span class="chip" id="tclock" hidden><span class="mono" id="tms">0.0 s</span></span>
+        </div>
+        <div class="phases" id="phases"></div>
+        <ul class="steps" id="steps"><li class="empty">Each tool call the agent makes appears here, with the OpenCV measurement that drove it.</li></ul>
+      </section>
     </div>
-    <button id="go">Measure</button>
-    <button id="approve" class="secondary" hidden>Approve as operator</button>
-    <label style="margin-top:20px">Agent decisions</label>
-    <ul id="steps"><li class="empty">Pick a river and press Measure.</li></ul>
-  </section>
-  <section class="view">
-    <div class="card">
-      <img id="img" alt="First frame with velocity vectors, gauge points and cross-sections">
-      <div class="legend">Arrows: surface velocity (blue slow → red fast, length ×4). Dots: gauge points, white ring = high confidence, red ring = low confidence. Yellow: surveyed cross-sections.</div>
-    </div>
-    <div class="card" id="resultcard"><div class="empty">Results appear here.</div></div>
-  </section>
-</main>
+  </main>
+</div>
+
 <script>
 const $ = id => document.getElementById(id);
-let sites = [], degs = {}, runId = null;
-const REPAIR = new Set(["stabilise","remove_repeated_frames","mask_glare","set_preprocess"]);
-const WHY = {
-  load_clip: r => `${r.frames} frames at ${r.effective_fps} fps (${r.seconds_of_video}s)` + (r.repeated_frame_share>0.3?` · ${Math.round(r.repeated_frame_share*100)}% repeated frames`:"") + (r.dropped_bad_frames?` · dropped ${r.dropped_bad_frames} bad`:""),
-  diagnose_clip: r => `moving ${(r.moving_fraction*100).toFixed(1)}% · tracers ${r.tracer_density.toFixed(2)}/m² · ${r.disp_px.toFixed(1)} px/frame` + (r.camera_motion_px!=null?` · camera ${r.camera_motion_px.toFixed(1)} px`:"") + (r.findings.length?` → <b>${r.findings.join(", ")}</b>`:" → clean"),
-  stabilise: r => r.error ? r.error : (r.kept ? `camera ${r.camera_motion_before_px} → ${r.camera_motion_after_px} px, fit ${r.residual_px} px` : `rejected: ${r.reason}`),
-  remove_repeated_frames: r => `kept ${r.kept}, every frame repeated ×${r.repeat_period} → real ${r.effective_fps} fps`,
-  mask_glare: r => `removed ${(r.removed_share_of_region*100).toFixed(1)}% of the region`,
-  set_preprocess: r => `preprocess: ${r.preprocess}`,
-  measure_velocity: r => r.refused ? `<b>refused</b>: ${r.refused}` : `${r.method.toUpperCase()}: ${r.vectors.toLocaleString()} vectors, median ${r.median_speed_ms} m/s`,
-  sample_points: r => `${r.measured}/${r.points} points (${Math.round(r.coverage*100)}%), ${r.low_confidence} low-confidence` + (r.fill&&r.fill.filled?` · filled ${r.fill.filled}`:""),
-  compute_discharge: r => r.refused ? r.refused : `Q = ${r.q} ± ${r.q_sd} m³/s` + (r.continuity?` · sections differ ${Math.round(r.continuity.rel_diff*100)}%`:"") + (r.passed?" · checks passed":` · <b>${r.problems.join("; ")}</b>`),
-  refuse: r => `${r.reason}. <i>${r.advice}</i>`,
-  escalate: r => `waiting for a human: ${r.reason}`,
-  publish: r => r.refused ? `<b>blocked</b>: ${r.refused}` : `published` + (r.q!=null?` Q = ${r.q} m³/s`:""),
+let sites = [], degs = {}, runId = null, publicDemo = false, cur = "lamorge", deg = "none", lvl = null, planner = "rules";
+let camBefore = null, totalMs = 0, reached = new Set(), repaired = false;
+
+const PHASES = [["perceive","Perceive"],["repair","Repair"],["measure","Measure"],["check","Check"],["decide","Decide"]];
+const PHASE_OF = {load_clip:"perceive", diagnose_clip:"perceive", stabilise:"repair", stabilise_from_flow:"repair",
+  remove_repeated_frames:"repair", mask_glare:"repair", set_preprocess:"repair", measure_velocity:"measure",
+  sample_points:"measure", compute_discharge:"check", publish:"decide", refuse:"decide", escalate:"decide",
+  human_approval:"decide", human_rejection:"decide"};
+const ICON = {
+  idle:'<svg width="20" height="20" viewBox="0 0 20 20"><path d="M3 11c2-2.2 4-2.2 6 0s4 2.2 6 0M3 6.5c2-2.2 4-2.2 6 0s4 2.2 6 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+  ok:'<svg width="20" height="20" viewBox="0 0 20 20"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  bad:'<svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 15L15 5" stroke="currentColor" stroke-width="2"/></svg>',
+  warn:'<svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="7" r="3.2" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M3.8 17c.8-3.2 3.3-5 6.2-5s5.4 1.8 6.2 5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>',
+  live:'<svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="30 14"><animateTransform attributeName="transform" type="rotate" from="0 10 10" to="360 10 10" dur="1s" repeatCount="indefinite"/></circle></svg>',
 };
-function esc(s){return String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}
+const f1 = x => (x==null||!isFinite(x)) ? "—" : Number(x).toFixed(1);
+const WHY = {
+  load_clip: r => `${r.frames} frames at ${r.effective_fps} fps (${r.seconds_of_video} s)` + (r.repeated_frame_share>0.3?` · <b>${Math.round(r.repeated_frame_share*100)}% repeated frames</b>`:"") + (r.dropped_bad_frames?` · dropped ${r.dropped_bad_frames} bad`:""),
+  diagnose_clip: r => `moving ${(r.moving_fraction*100).toFixed(1)}% · tracers ${r.tracer_density.toFixed(2)}/m² · ${r.disp_px.toFixed(1)} px/frame` + (r.camera_motion_px!=null?` · camera ${r.camera_motion_px.toFixed(1)} px`:"") + (r.findings.length?` → <b>${r.findings.map(x=>x.replace(/_/g," ")).join(", ")}</b>`:" → clean"),
+  stabilise: r => r.error ? r.error : (r.kept ? `camera <b>${r.camera_motion_before_px} → ${r.camera_motion_after_px} px</b>, fit ${r.residual_px} px · kept` : `rejected its own fix: ${r.reason}`),
+  stabilise_from_flow: r => r.error ? r.error : (r.kept ? `jitter <b>${f1(r.jitter_before_px)} → ${f1(r.jitter_after_px)} px</b> · kept` : `rejected its own fix: ${r.reason}`),
+  remove_repeated_frames: r => `kept ${r.kept}, every frame repeated ×${r.repeat_period} → <b>real ${r.effective_fps} fps</b>`,
+  mask_glare: r => `masked <b>${(r.removed_share_of_region*100).toFixed(1)}%</b> of the water`,
+  set_preprocess: r => `preprocess: <b>${r.preprocess}</b>`,
+  measure_velocity: r => r.refused ? `<b>refused</b>: ${r.refused}` : `${r.method.toUpperCase()}: ${r.vectors.toLocaleString()} vectors, median <b>${r.median_speed_ms} m/s</b>`,
+  sample_points: r => r.error ? r.error : `${r.measured}/${r.points} points (${Math.round(r.coverage*100)}%), ${r.low_confidence} low-confidence` + (r.fill&&r.fill.filled?` · filled ${r.fill.filled}`:""),
+  compute_discharge: r => r.refused ? r.refused : `Q = <b>${r.q} ± ${r.q_sd} m³/s</b>` + (r.continuity?` · sections differ ${Math.round(r.continuity.rel_diff*100)}%`:"") + (r.passed?" · checks passed":` · <b>${r.problems.join("; ")}</b>`),
+  refuse: r => `<b>${r.reason}</b>. ${r.advice||""}`,
+  escalate: r => `<b>waiting for a human</b>: ${r.reason}`,
+  publish: r => r.refused ? `<b>blocked by guard rail</b>: ${r.refused}` : `published` + (r.q!=null?` Q = <b>${r.q} m³/s</b>`:"") + (r.flood_alert?" · <b>flood alert sent</b>":""),
+  human_approval: r => `operator approved the alert`,
+  human_rejection: r => `operator rejected · <b>no alert sent</b>`,
+};
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function seg(el, items, val, on){
+  el.innerHTML = items.map(([v,t])=>`<button data-v="${esc(v)}" aria-pressed="${String(v)===String(val)}">${esc(t)}</button>`).join("");
+  el.onclick = e => { const b = e.target.closest("button"); if(!b||b.disabled) return;
+    [...el.children].forEach(x=>x.setAttribute("aria-pressed", x===b)); on(b.dataset.v); };
+}
+function status(kind, text){ $("status").className = "chip "+kind; $("statustxt").textContent = text; }
+function decision(kind, title, detail){
+  $("decision").className = "decision "+kind; $("dico").innerHTML = ICON[kind]||ICON.idle;
+  $("dt").textContent = title; $("dd").innerHTML = detail||"";
+}
+function kpi(n, v, s, cls){ $("k"+n).innerHTML = v; $("k"+n).className = "v "+(cls||""); if (s!=null) $("k"+n+"s").textContent = s; }
+function resetKpis(){
+  kpi(1,"—","m³/s at surveyed sections"); kpi(2,"—","current meter / ADCP"); kpi(3,"—","median, OpenCV tracking"); kpi(4,"—","before → after repair");
+}
+function drawPhases(active, end){
+  $("phases").innerHTML = PHASES.map(([k,t])=>{
+    let c = "ph "+k;
+    if (end && k==="decide") c += " "+end;
+    else if (k===active) c += " active";
+    else if (reached.has(k)) c += " done";
+    else if (k==="repair" && (reached.has("measure")||reached.has("decide"))) c += " skip";
+    return `<div class="${c}"><div class="bar"></div>${t}${k==="repair"&&c.includes("skip")?" · none":""}</div>`;
+  }).join("");
+}
+function setImage(src){ if(!src) return; const im=$("img"); im.onload=()=>{im.classList.add("on"); $("vempty").hidden=true;}; im.src=src; }
+function vchips(r){
+  const c = [];
+  c.push(`<span class="chip">tracers ${r.tracer_density.toFixed(1)}/m²</span>`);
+  c.push(`<span class="chip">moving ${(r.moving_fraction*100).toFixed(0)}%</span>`);
+  if (r.camera_motion_px!=null) c.push(`<span class="chip ${r.camera_motion_px>1?"flag":""}">camera ${r.camera_motion_px.toFixed(1)} px</span>`);
+  if (r.glare_fraction>0.01) c.push(`<span class="chip flag">glare ${(r.glare_fraction*100).toFixed(0)}%</span>`);
+  if (r.flicker>0.02) c.push(`<span class="chip flag">flicker</span>`);
+  $("vchips").innerHTML = c.join("");
+}
+
+function pickSite(name){
+  cur = name; const s = sites.find(x=>x.site===name);
+  [...$("sites").children].forEach(li=>li.firstElementChild.setAttribute("aria-pressed", li.dataset.site===name));
+  $("vtitle").textContent = s.label;
+  $("vsub").textContent = `${s.platform} · ${s.country} · ${s.frames} frames · ${s.fps} fps · ${s.gsd} m/px`;
+  $("img").classList.remove("on"); $("vempty").hidden = false; $("vempty").textContent = "Loading frame…"; $("vchips").innerHTML = "";
+  fetch("/api/preview?site="+encodeURIComponent(name)).then(r=>r.json()).then(r=>{
+    if (cur!==name) return;
+    if (r.image) setImage(r.image); else $("vempty").textContent = "No frames on disk for this river.";
+  });
+  resetKpis(); decision("idle","Ready", s.discharge ? "Two surveyed cross-sections and a current-meter gauging: the agent can compute discharge and be scored." : s.reference ? "In-river velocity reference: the agent's surface velocities are scored point by point." : "No reference for this clip: the agent's own checks are all there is.");
+  $("dacts").hidden = true;
+}
+
 async function init(){
   const r = await (await fetch("/api/sites")).json();
-  sites = r.sites; degs = r.degradations;
-  $("site").innerHTML = sites.map(s=>`<option value="${s.site}">${s.site} — ${s.platform}, ${s.country}</option>`).join("");
-  $("site").value = "lamorge";
-  $("deg").innerHTML += Object.keys(degs).map(d=>`<option>${d}</option>`).join("");
-  const upd = ()=>{ const s = sites.find(x=>x.site===$("site").value);
-    $("siteinfo").textContent = `${s.frames} frames · ${s.fps} fps · ${s.gsd} m/px` + (s.discharge?" · 2 surveyed sections + gauged discharge":"") + (s.reference?" · in-river reference":" · no reference"); };
-  const lv = ()=>{ const d=$("deg").value; $("lvl").innerHTML = d==="none"?"<option>-</option>":degs[d].map(v=>`<option>${v}</option>`).join(""); };
-  $("site").onchange=upd; $("deg").onchange=lv; upd(); lv();
+  publicDemo = r.public;
+  sites = r.sites.sort((a,b)=>(b.discharge-a.discharge)||(b.reference-a.reference)); degs = r.degradations;
+  $("cvver").textContent = "OpenCV "+r.opencv; $("cvchip").classList.add("ok");
+  $("sites").innerHTML = sites.map(s=>`<li data-site="${esc(s.site)}"><button class="site" aria-pressed="false" aria-label="${esc(s.label)}, ${esc(s.platform)}, ${esc(s.country)}">
+    <div class="n">${esc(s.label)}${s.discharge?'<span class="badge">Q</span>':""}${s.reference?'<span class="badge ref">REF</span>':""}</div>
+    <div class="m">${esc(s.platform)} · ${esc(s.country)}</div></button></li>`).join("");
+  $("sites").onclick = e => { const li = e.target.closest("li"); if (li) pickSite(li.dataset.site); };
+  seg($("deg"), [["none","None"],...Object.keys(degs).map(d=>[d, d==="duplicate"?"Repeated frames":d[0].toUpperCase()+d.slice(1)])], "none", v=>{deg=v; levels();});
+  seg($("planner"), [["rules","Rules"],["claude","Claude · Bedrock"]], "rules", v=>planner=v);
+  levels(); drawPhases(); decision("idle","Ready","");
+  pickSite(sites.some(s=>s.site==="lamorge") ? "lamorge" : sites[0].site);
 }
+function levels(){
+  const unit = {shake:" px", flicker:"", blur:" σ", glare:"", duplicate:"×"};
+  if (deg==="none"){ seg($("lvl"), [["-","—"]], "-", ()=>{}); $("lvl").firstElementChild.disabled = true; lvl = null; return; }
+  const ls = degs[deg]; lvl = ls[ls.length-1];
+  const lab = v => deg==="glare" ? `${Math.round(v*100)}%` : deg==="flicker" ? `±${Math.round(v*100)}%` : deg==="duplicate" ? `×${v}` : `${v}${unit[deg]}`;
+  seg($("lvl"), ls.map(v=>[v, lab(v)]), lvl, v=>lvl=v);
+}
+
 function step(ev){
-  const li = document.createElement("li");
   const r = ev.result || {};
-  li.className = REPAIR.has(ev.tool) ? "repair" : (ev.tool==="refuse"||r.refused) ? "stop" : ev.tool==="escalate" ? "human" : ev.tool==="publish" ? "pub" : "";
-  const why = WHY[ev.tool] ? WHY[ev.tool](r) : esc(JSON.stringify(r));
-  li.innerHTML = `<span class="ms">${ev.ms} ms</span><div class="tool">${ev.step}. ${ev.tool}</div><div class="why">${why}</div>`;
-  $("steps").appendChild(li); li.scrollIntoView({block:"nearest"});
+  const ph = PHASE_OF[ev.tool] || "measure";
+  reached.add(ph); totalMs += ev.ms||0; $("tms").textContent = (totalMs/1000).toFixed(1)+" s";
+  let cls = ph;
+  if (ph==="decide") cls = (ev.tool==="refuse"||r.refused) ? "stop" : (ev.tool==="escalate") ? "human" : ev.tool==="human_rejection" ? "stop" : ev.tool==="human_approval" ? "human" : "pub";
+  else if (r.refused) cls = "stop";
+  if ((ev.tool==="stabilise"||ev.tool==="stabilise_from_flow") && r.kept) repaired = true;
+  if (["remove_repeated_frames","mask_glare","set_preprocess"].includes(ev.tool)) repaired = true;
+  drawPhases(ph);
+  const li = document.createElement("li");
+  li.className = "st "+cls;
+  li.innerHTML = `<div class="h"><span class="tool">${esc(ev.tool)}</span><span class="ph-l">${ph}</span><span class="ms">${ev.ms!=null?ev.ms+" ms":""}</span></div><div class="why">${WHY[ev.tool]?WHY[ev.tool](r):esc(JSON.stringify(r))}</div>`;
+  $("steps").appendChild(li); li.scrollIntoView({block:"nearest", behavior:"smooth"});
+
+  // live KPIs
+  if (ev.tool==="diagnose_clip"){ vchips(r); if (camBefore==null && r.camera_motion_px!=null){ camBefore = r.camera_motion_px; kpi(4, `${f1(camBefore)}<small>px</small>`, camBefore>1?"shake detected":"steady camera", camBefore>1?"mid":"good"); } }
+  if (ev.tool==="stabilise" && r.kept) kpi(4, `${f1(r.camera_motion_before_px)}→${f1(r.camera_motion_after_px)}<small>px</small>`, "removed by self-checked stabilisation", "good");
+  if (ev.tool==="stabilise_from_flow" && r.kept) kpi(4, `${f1(r.jitter_before_px)}→${f1(r.jitter_after_px)}<small>px</small>`, "flow jitter removed", "good");
+  if (ev.tool==="measure_velocity" && !r.refused) kpi(3, `${r.median_speed_ms}<small>m/s</small>`, `${r.method.toUpperCase()} · ${r.vectors.toLocaleString()} vectors`);
+  if (ev.tool==="compute_discharge" && r.q!=null) kpi(1, `${Number(r.q).toFixed(3)}<small>± ${Number(r.q_sd).toFixed(2)}</small>`, r.passed?"m³/s · physics checks passed":"m³/s · checks failed", r.passed?"":"badv");
 }
-function result(ev){
-  const sc = ev.score, parts = [];
-  let banner;
-  if (ev.outcome==="published") banner = `<div class="banner ok">Published</div>`;
-  else if (ev.outcome==="refused") banner = `<div class="banner bad">Refused<small>${esc(ev.refused)}</small></div>`;
-  else banner = `<div class="banner warn">Waiting for a human<small>${esc(ev.escalated||"")}</small></div>`;
-  if (sc.q!=null) parts.push(`<div class="metric"><span>Discharge</span><b>${sc.q.toFixed(3)} m³/s</b><span>${sc.q_ref?`gauged ${sc.q_ref.toFixed(3)} · error ${(sc.q_err*100).toFixed(1)}%`:""}</span></div>`);
-  for (const k of ["surface","depth_avg","integrated"]) if (sc[k] && sc[k].mape!=null){
-    const hc = sc[k+"_highconf"];
-    parts.push(`<div class="metric"><span>Error vs in-river ${k.replace("_"," ")}</span><b>${sc[k].mape.toFixed(1)}%</b><span>${sc[k].n} points, ${Math.round(sc[k].coverage*100)}% covered` + (hc&&hc.mape!=null?` · high-confidence ${hc.mape.toFixed(1)}% (${hc.n})`:"") + `</span></div>`);
+
+function done(ev){
+  const sc = ev.score || {};
+  $("viewer").classList.remove("busy");
+  const end = ev.outcome==="published" ? "" : ev.outcome==="refused" ? "stop" : "hold";
+  reached.add("decide"); drawPhases(null, end);
+  if (sc.q!=null){
+    kpi(1, `${sc.q.toFixed(3)}<small>m³/s</small>`, sc.q_ref?`gauged ${sc.q_ref.toFixed(3)} m³/s`:"m³/s");
+    if (sc.q_err!=null){ const e = sc.q_err*100; kpi(2, `${e>0?"+":""}${e.toFixed(1)}<small>%</small>`, "vs current-meter gauging", Math.abs(e)<10?"good":Math.abs(e)<25?"mid":"badv"); }
+  } else {
+    const k = ["surface","depth_avg","integrated"].find(k=>sc[k]&&sc[k].mape!=null);
+    if (k){ const m = sc[k].mape; kpi(2, `${m.toFixed(1)}<small>%</small>`, `mean error, ${sc[k].n} in-river points`, m<20?"good":m<40?"mid":"badv"); }
   }
-  parts.push(`<div class="metric"><span>Agent steps</span><b>${sc.steps}</b><span>${$("planner").value} planner</span></div>`);
-  $("resultcard").innerHTML = banner + `<div class="result" style="margin-top:12px">${parts.join("")}</div>`;
-  $("approve").hidden = ev.outcome!=="escalated";
+  if (camBefore!=null && !repaired && $("k4").textContent.indexOf("→")<0) kpi(4, `${f1(camBefore)}<small>px</small>`, camBefore>1?"not repaired":"no repair needed", camBefore>1?"mid":"good");
+  const secs = (totalMs/1000).toFixed(1);
+  if (ev.outcome==="published"){ status("ok","Published"); decision("ok","Published", `${sc.steps} agent steps in ${secs} s` + (repaired?" · footage repaired before measuring":"") + (sc.q!=null?` · Q = ${sc.q.toFixed(3)} m³/s`:"")); }
+  else if (ev.outcome==="refused"){ status("bad","Refused"); decision("bad","Refused: no trustworthy number", esc(ev.refused||"")); }
+  else { status("warn","Waiting for a human"); decision("warn","Waiting for a human", esc(ev.escalated||"") + "<br>The agent can't send a flood alert on its own. An operator must approve it."); $("dacts").hidden = false; }
 }
+
 $("go").onclick = async ()=>{
-  $("go").disabled = true; $("approve").hidden = true; $("steps").innerHTML = ""; $("resultcard").innerHTML = `<div class="empty">Measuring…</div>`;
-  const q = new URLSearchParams({site:$("site").value, planner:$("planner").value, degradation:$("deg").value, level:$("lvl").value});
+  $("go").disabled = true; $("dacts").hidden = true; $("steps").innerHTML = ""; $("vchips").innerHTML = "";
+  camBefore = null; totalMs = 0; reached = new Set(); repaired = false; resetKpis(); drawPhases("perceive");
+  $("tclock").hidden = false; $("tms").textContent = "0.0 s"; $("viewer").classList.add("busy");
+  status("live", planner==="claude" ? "Claude is planning" : "Agent running");
+  decision("live", planner==="claude" ? "Claude is working" : "Agent is working", deg!=="none" ? `Clip damaged with ${deg==="duplicate"?"repeated frames":deg} (${lvl}). Watch whether it notices.` : "Diagnosing the clip with OpenCV…") + (publicDemo ? "<br>This public demo runs on a small AWS Graviton server: a run takes about a minute." : "");
+  const q = new URLSearchParams({site:cur, planner, degradation:deg, level:lvl==null?"":lvl});
   if ($("flood").value) q.set("flood_q", $("flood").value);
-  runId = (await (await fetch("/api/run?"+q)).json()).run_id;
+  const resp = await fetch("/api/run?"+q), body = await resp.json();
+  if (!resp.ok){ status("warn","Busy"); decision("warn","Not started", esc(body.error||"Try again.")); $("go").disabled = false; $("viewer").classList.remove("busy"); drawPhases(); return; }
+  runId = body.run_id;
   const es = new EventSource("/api/stream?run_id="+runId);
+  const finish = () => { es.close(); $("go").disabled = false; $("viewer").classList.remove("busy"); };
   es.onmessage = m => { const ev = JSON.parse(m.data);
     if (ev.type==="step") step(ev);
-    else if (ev.type==="overlay" && ev.image) $("img").src = ev.image;
-    else if (ev.type==="summary") { const li=document.createElement("li"); li.innerHTML=`<div class="tool">Claude</div><div class="why">${esc(ev.text)}</div>`; $("steps").appendChild(li); }
-    else if (ev.type==="done") { if (ev.overlay) $("img").src = ev.overlay; result(ev); es.close(); $("go").disabled=false; }
-    else if (ev.type==="error") { $("resultcard").innerHTML = `<div class="banner bad">Error<small>${esc(ev.error)}</small></div>`; es.close(); $("go").disabled=false; }
+    else if (ev.type==="overlay" && ev.image) setImage(ev.image);
+    else if (ev.type==="summary"||ev.type==="thought"){ const li = document.createElement("li"); li.className = "st claude"; li.innerHTML = `<div class="h"><span class="tool">Claude</span><span class="ph-l">${ev.type==="thought"?"reasoning":"summary"}</span></div><div class="why">${esc(ev.text.replace(/\*\*/g,""))}</div>`; $("steps").appendChild(li); li.scrollIntoView({block:"nearest"}); }
+    else if (ev.type==="done"){ if (ev.overlay) setImage(ev.overlay); done(ev); finish(); }
+    else if (ev.type==="error"){ status("bad","Error"); decision("bad","Error", esc(ev.error)); finish(); }
   };
-  es.onerror = () => { es.close(); $("go").disabled=false; };
+  es.onerror = () => { if ($("go").disabled){ status("bad","Disconnected"); finish(); } };
 };
-$("approve").onclick = async ()=>{
-  const r = await (await fetch("/api/approve?run_id="+runId+"&by=operator")).json();
-  const p = r.publish || {};
-  step({step:"✓", tool:"human_approval", ms:0, result:{}});
-  step({step:"✓", tool:"publish", ms:0, result:p});
-  $("approve").hidden = true;
-};
+async function human(ok){
+  $("approve").disabled = $("reject").disabled = true;
+  const r = await (await fetch(`/api/${ok?"approve":"reject"}?run_id=${runId}&by=operator`)).json();
+  step({tool: ok?"human_approval":"human_rejection", ms:0, result:{}});
+  if (ok){ const p = r.publish||{}; step({tool:"publish", ms:0, result:p});
+    status("ok","Published"); decision("ok","Approved and published", `An operator approved it. Q = ${p.q!=null?p.q:"—"} m³/s` + (p.flood_alert?" · flood alert sent":"")); drawPhases(null,""); }
+  else { status("bad","Rejected"); decision("bad","Rejected by operator","Recorded. No alert was sent."); drawPhases(null,"stop"); }
+  $("dacts").hidden = true; $("approve").disabled = $("reject").disabled = false;
+}
+$("approve").onclick = () => human(true);
+$("reject").onclick = () => human(false);
 init();
 </script>
 </body>

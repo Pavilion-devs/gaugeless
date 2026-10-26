@@ -1,0 +1,227 @@
+{
+ "provenance": {
+  "opencv": "4.12.0",
+  "opencv_file": "/opt/cool/python_3.12/site-packages/cv2/python-3.12/cv2.cpython-312-aarch64-linux-gnu.so",
+  "build_info_sha1": "4c2785d74662",
+  "machine": "aarch64",
+  "processor": "aarch64",
+  "python": "3.12.3",
+  "threads": 2,
+  "kleidicv": true,
+  "cool": true,
+  "time": "2026-10-26T18:18:04Z",
+  "instance_type": "c7g.large",
+  "instance_id": "i-0a6d04c11e2ab621c",
+  "ami_id": "ami-0c0803594d6330678"
+ },
+ "stages": [
+  {
+   "case": "arrow_uas_seeded",
+   "stage": "klt",
+   "frames": 60,
+   "size": "464x505",
+   "seconds": 4.8419,
+   "ms_per_frame": 80.698,
+   "x_realtime": 2.48
+  },
+  {
+   "case": "arrow_uas_seeded",
+   "stage": "lspiv",
+   "frames": 60,
+   "size": "464x505",
+   "seconds": 0.2274,
+   "ms_per_frame": 3.791,
+   "x_realtime": 52.76
+  },
+  {
+   "case": "arrow_uas_seeded",
+   "stage": "stiv",
+   "frames": 60,
+   "size": "464x505",
+   "seconds": 0.089,
+   "ms_per_frame": 1.484,
+   "x_realtime": 134.78
+  },
+  {
+   "case": "arrow_uas_seeded",
+   "stage": "dis",
+   "frames": 60,
+   "size": "464x505",
+   "seconds": 0.9452,
+   "ms_per_frame": 15.754,
+   "x_realtime": 12.7
+  },
+  {
+   "case": "arrow_uas_seeded",
+   "stage": "stabilise",
+   "frames": 60,
+   "size": "464x505",
+   "seconds": 0.472,
+   "ms_per_frame": 7.866,
+   "x_realtime": 25.42
+  },
+  {
+   "case": "arrow_uas_seeded",
+   "stage": "agent_end_to_end",
+   "seconds": 15.09,
+   "video_seconds": 19.8,
+   "x_realtime": 1.31
+  },
+  {
+   "case": "lamorge",
+   "stage": "klt",
+   "frames": 48,
+   "size": "1550x950",
+   "seconds": 9.7755,
+   "ms_per_frame": 203.655,
+   "x_realtime": 0.98
+  },
+  {
+   "case": "lamorge",
+   "stage": "lspiv",
+   "frames": 48,
+   "size": "1550x950",
+   "seconds": 1.0878,
+   "ms_per_frame": 22.663,
+   "x_realtime": 8.82
+  },
+  {
+   "case": "lamorge",
+   "stage": "stiv",
+   "frames": 48,
+   "size": "1550x950",
+   "seconds": 0.1604,
+   "ms_per_frame": 3.342,
+   "x_realtime": 59.85
+  },
+  {
+   "case": "lamorge",
+   "stage": "dis",
+   "frames": 48,
+   "size": "1550x950",
+   "seconds": 1.8429,
+   "ms_per_frame": 38.394,
+   "x_realtime": 5.21
+  },
+  {
+   "case": "lamorge",
+   "stage": "stabilise",
+   "frames": 48,
+   "size": "1550x950",
+   "seconds": 0.6812,
+   "ms_per_frame": 14.191,
+   "x_realtime": 14.09
+  },
+  {
+   "case": "lamorge",
+   "stage": "agent_end_to_end",
+   "seconds": 25.138,
+   "video_seconds": 9.6,
+   "x_realtime": 0.38
+  },
+  {
+   "case": "lavence",
+   "stage": "klt",
+   "frames": 60,
+   "size": "320x755",
+   "seconds": 5.8647,
+   "ms_per_frame": 97.746,
+   "x_realtime": 0.34
+  },
+  {
+   "case": "lavence",
+   "stage": "lspiv",
+   "frames": 60,
+   "size": "320x755",
+   "seconds": 0.2274,
+   "ms_per_frame": 3.79,
+   "x_realtime": 8.8
+  },
+  {
+   "case": "lavence",
+   "stage": "stiv",
+   "frames": 60,
+   "size": "320x755",
+   "seconds": 0.0894,
+   "ms_per_frame": 1.491,
+   "x_realtime": 22.36
+  },
+  {
+   "case": "lavence",
+   "stage": "dis",
+   "frames": 60,
+   "size": "320x755",
+   "seconds": 1.0462,
+   "ms_per_frame": 17.437,
+   "x_realtime": 1.91
+  },
+  {
+   "case": "lavence",
+   "stage": "stabilise",
+   "frames": 60,
+   "size": "320x755",
+   "seconds": 0.2385,
+   "ms_per_frame": 3.974,
+   "x_realtime": 8.39
+  },
+  {
+   "case": "lavence",
+   "stage": "agent_end_to_end",
+   "seconds": 27.477,
+   "video_seconds": 5.0,
+   "x_realtime": 0.18
+  },
+  {
+   "case": "noce",
+   "stage": "klt",
+   "frames": 60,
+   "size": "1920x1080",
+   "seconds": 11.8343,
+   "ms_per_frame": 197.238,
+   "x_realtime": 0.42
+  },
+  {
+   "case": "noce",
+   "stage": "lspiv",
+   "frames": 60,
+   "size": "1920x1080",
+   "seconds": 0.7217,
+   "ms_per_frame": 12.029,
+   "x_realtime": 6.93
+  },
+  {
+   "case": "noce",
+   "stage": "stiv",
+   "frames": 60,
+   "size": "1920x1080",
+   "seconds": 0.2192,
+   "ms_per_frame": 3.654,
+   "x_realtime": 22.81
+  },
+  {
+   "case": "noce",
+   "stage": "dis",
+   "frames": 60,
+   "size": "1920x1080",
+   "seconds": 1.8687,
+   "ms_per_frame": 31.145,
+   "x_realtime": 2.68
+  },
+  {
+   "case": "noce",
+   "stage": "stabilise",
+   "frames": 60,
+   "size": "1920x1080",
+   "seconds": 1.2697,
+   "ms_per_frame": 21.161,
+   "x_realtime": 3.94
+  },
+  {
+   "case": "noce",
+   "stage": "agent_end_to_end",
+   "seconds": 38.229,
+   "video_seconds": 5.8,
+   "x_realtime": 0.15
+  }
+ ]
+}

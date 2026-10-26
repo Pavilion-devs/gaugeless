@@ -30,6 +30,15 @@ from ..cases import CASES, load_frames
 
 HERE = os.path.dirname(__file__)
 RUNS: dict[str, dict] = {}
+# public-endpoint limits (set from the command line): one run at a time, and a cap on Bedrock calls
+LIMITS = {"one_at_a_time": False, "claude_per_hour": None}
+CLAUDE_RUNS: list[float] = []
+PREVIEWS: dict[str, str | None] = {}
+LABELS = {"noce": "Noce", "bradano": "Bradano", "alpine": "Alpine stream", "arrow_uas_seeded": "Arrow · seeded",
+          "arrow_uas_unseeded": "Arrow · unseeded", "arrow_gopro_seeded": "Arrow GoPro · seeded",
+          "arrow_gopro_unseeded": "Arrow GoPro · unseeded", "brenta_flir": "Brenta · thermal", "thalhofen": "Thalhofen",
+          "lavence": "La Vence", "tiber": "Tiber · flood", "murg": "Murg", "castor": "Castor · raw oblique",
+          "lamorge": "La Morge", "stjulien": "St Julien · flash flood"}
 
 
 def _speed_colour(v, vmax):
@@ -105,7 +114,7 @@ def start_run(site, planner="rules", degradation=None, level=None, flood_q=None)
         try:
             if planner == "claude":
                 from ..agent import llm
-                llm.plan(s, call, verbose=False)
+                llm.plan(s, call, verbose=False, on_text=lambda t: q.put({"type": "thought", "text": t}))
                 if getattr(s, "llm_summary", None):
                     q.put({"type": "summary", "text": s.llm_summary})
             else:
@@ -116,8 +125,13 @@ def start_run(site, planner="rules", degradation=None, level=None, flood_q=None)
                    "outcome": sc["outcome"], "escalated": s.escalated, "refused": s.refused})
         except Exception as e:
             q.put({"type": "error", "error": f"{type(e).__name__}: {e}"})
+        s.frames = []                       # approval only needs the result, not the clip
         run["done"] = True
         q.put(None)
+
+    for old in list(RUNS)[:-30]:            # keep memory bounded on a small instance
+        if RUNS[old]["done"]:
+            del RUNS[old]
 
     threading.Thread(target=work, daemon=True).start()
     return rid
@@ -150,11 +164,28 @@ class H(BaseHTTPRequestHandler):
             for n, c in CASES.items():
                 if n == "alpine_full" or c.available() == 0:
                     continue
-                out.append({"site": n, "platform": c.platform, "country": c.country, "fps": c.fps, "gsd": c.gsd,
-                            "frames": c.available(), "notes": c.notes, "discharge": n == "lamorge",
-                            "reference": bool(c.ref)})
-            self._json({"sites": out, "degradations": {k: v[2] for k, v in G.DEGRADATIONS.items()}})
+                out.append({"site": n, "label": LABELS.get(n, n), "platform": c.platform, "country": c.country,
+                            "fps": c.fps, "gsd": c.gsd, "frames": c.available(), "notes": c.notes,
+                            "discharge": n == "lamorge", "reference": bool(c.ref)})
+            self._json({"sites": out, "degradations": {k: v[2] for k, v in G.DEGRADATIONS.items()},
+                        "opencv": cv2.__version__, "public": LIMITS["one_at_a_time"]})
+        elif u.path == "/api/preview":
+            site = qs.get("site", "")
+            if site not in CASES:
+                return self._json({"error": "unknown site"}, 404)
+            if site not in PREVIEWS:
+                PREVIEWS[site] = overlay(make_session(site, None))
+            self._json({"image": PREVIEWS[site]})
         elif u.path == "/api/run":
+            if LIMITS["one_at_a_time"] and any(not r["done"] for r in RUNS.values()):
+                return self._json({"error": "Another run is in progress. Try again in a few seconds."}, 429)
+            if qs.get("planner") == "claude" and LIMITS["claude_per_hour"] is not None:
+                now = time.time()
+                CLAUDE_RUNS[:] = [t for t in CLAUDE_RUNS if now - t < 3600]
+                if len(CLAUDE_RUNS) >= LIMITS["claude_per_hour"]:
+                    return self._json({"error": "The Claude planner's hourly limit on this public demo is used up. "
+                                                "Try the rules planner, or come back later."}, 429)
+                CLAUDE_RUNS.append(now)
             rid = start_run(qs.get("site", "lamorge"), qs.get("planner", "rules"), qs.get("degradation"),
                             qs.get("level"), float(qs["flood_q"]) if qs.get("flood_q") else None)
             self._json({"run_id": rid})
@@ -183,6 +214,14 @@ class H(BaseHTTPRequestHandler):
             s.refused = None if s.refused and s.refused.startswith("flood") else s.refused
             res = T.publish(s)
             self._json({"publish": res})
+        elif u.path == "/api/reject":
+            run = RUNS.get(qs.get("run_id", ""))
+            if not run or not run["session"]:
+                return self._json({"error": "unknown run"}, 404)
+            s = run["session"]
+            s.trace.append({"step": len(s.trace) + 1, "tool": "human_rejection", "args": {"by": qs.get("by", "operator")},
+                            "result": {"approved": False, "alert_sent": False}, "ms": 0})
+            self._json({"rejected": True})
         else:
             self._json({"error": "not found"}, 404)
 
@@ -193,7 +232,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--port", type=int, default=8080)
     ap.add_argument("--host", default="127.0.0.1")
+    ap.add_argument("--public", action="store_true", help="public endpoint: one run at a time, capped Claude runs")
+    ap.add_argument("--claude-per-hour", type=int, default=6)
     a = ap.parse_args()
+    if a.public:
+        LIMITS.update(one_at_a_time=True, claude_per_hour=a.claude_per_hour)
     print(f"Gaugeless on http://{a.host}:{a.port}")
     ThreadingHTTPServer((a.host, a.port), H).serve_forever()
 

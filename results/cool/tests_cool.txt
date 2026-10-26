@@ -1,0 +1,17 @@
++ bash -c 'source /opt/cool/venvs/python_3.12/bin/activate && cd /opt/g && python -m pytest -q tests'
+.........................                                                [100%]
+=============================== warnings summary ===============================
+tests/test_agent_tools.py::test_rules_planner_refuses_unseeded
+  /opt/cool/venvs/python_3.12/lib/python3.12/site-packages/numpy/core/_methods.py:206: RuntimeWarning: Degrees of freedom <= 0 for slice
+    ret = _var(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+
+tests/test_agent_tools.py::test_rules_planner_refuses_unseeded
+  /opt/cool/venvs/python_3.12/lib/python3.12/site-packages/numpy/core/_methods.py:163: RuntimeWarning: invalid value encountered in divide
+    arrmean = um.true_divide(arrmean, div, out=arrmean,
+
+tests/test_agent_tools.py::test_rules_planner_refuses_unseeded
+  /opt/cool/venvs/python_3.12/lib/python3.12/site-packages/numpy/core/_methods.py:198: RuntimeWarning: invalid value encountered in divide
+    ret = ret.dtype.type(ret / rcount)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+25 passed, 3 warnings in 28.34s

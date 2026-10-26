@@ -8,6 +8,10 @@ Parameters:
     Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
     Default: /aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-arm64
     Description: Arm64 AMI. Swap for the COOL Graviton AMI id once subscribed (then set CoolAmi=true).
+  PinnedAmi:
+    Type: String
+    Default: ""
+    Description: Optional AMI id that overrides WorkerAmi, so a stack update doesn't replace a running worker.
   CoolAmi:
     Type: String
     AllowedValues: ["true", "false"]
@@ -35,6 +39,7 @@ Parameters:
 
 Conditions:
   UseCool: !Equals [!Ref CoolAmi, "true"]
+  PinAmi: !Not [!Equals [!Ref PinnedAmi, ""]]
 
 Resources:
   # ---------------------------------------------------------------- storage + queue
@@ -277,10 +282,16 @@ Resources:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Gaugeless worker - egress only (managed through SSM, no inbound ports)
+  WebIngress:                     # public demo web app (make web-up); HTTP only, no data accepted from visitors
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties: {GroupId: !GetAtt WorkerSG.GroupId, IpProtocol: tcp, FromPort: 80, ToPort: 80, CidrIp: 0.0.0.0/0}
+  WebIp:
+    Type: AWS::EC2::EIP
+    Properties: {Domain: vpc, InstanceId: !Ref Worker}
   Worker:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: !Ref WorkerAmi
+      ImageId: !If [PinAmi, !Ref PinnedAmi, !Ref WorkerAmi]
       InstanceType: !Ref InstanceType
       IamInstanceProfile: !Ref WorkerProfile
       SecurityGroupIds: [!GetAtt WorkerSG.GroupId]
@@ -343,3 +354,4 @@ Outputs:
   StateMachine: {Value: !Ref ApprovalMachine}
   ApprovalUrl: {Value: !GetAtt ApprovalUrl.FunctionUrl}
   WorkerId: {Value: !Ref Worker}
+  WebUrl: {Value: !Sub "http://${WebIp}/"}

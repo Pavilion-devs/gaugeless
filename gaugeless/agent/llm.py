@@ -71,7 +71,7 @@ def _site_brief(s: T.Session):
     return json.dumps(b)
 
 
-def plan(s: T.Session, call, verbose=True, model=MODEL):
+def plan(s: T.Session, call, verbose=True, model=MODEL, on_text=None):
     import boto3
     br = boto3.client("bedrock-runtime", region_name=os.environ.get("AWS_REGION", "us-east-1"))
     tools = [{"toolSpec": {"name": t["name"], "description": t["description"],
@@ -91,6 +91,8 @@ def plan(s: T.Session, call, verbose=True, model=MODEL):
         for c in out["content"]:
             if "text" in c and verbose:
                 print("  claude:", c["text"].strip().replace("\n", " ")[:400])
+            if "text" in c and on_text and uses and c["text"].strip():
+                on_text(c["text"].strip())
         if not uses:
             s.llm_summary = " ".join(c.get("text", "") for c in out["content"]).strip()
             return

@@ -1,0 +1,26 @@
++ bash -c 'source /opt/cool/venvs/python_3.12/bin/activate && cd /opt/g && python -m bench.bench --cases arrow_uas_seeded lamorge lavence noce --repeat 5 --out results/bench_cool_b.json'
+{"case": "arrow_uas_seeded", "stage": "klt", "frames": 60, "size": "464x505", "seconds": 4.8289, "ms_per_frame": 80.482, "x_realtime": 2.49}
+{"case": "arrow_uas_seeded", "stage": "lspiv", "frames": 60, "size": "464x505", "seconds": 0.2269, "ms_per_frame": 3.781, "x_realtime": 52.89}
+{"case": "arrow_uas_seeded", "stage": "stiv", "frames": 60, "size": "464x505", "seconds": 0.1058, "ms_per_frame": 1.764, "x_realtime": 113.39}
+{"case": "arrow_uas_seeded", "stage": "dis", "frames": 60, "size": "464x505", "seconds": 0.9405, "ms_per_frame": 15.675, "x_realtime": 12.76}
+{"case": "arrow_uas_seeded", "stage": "stabilise", "frames": 60, "size": "464x505", "seconds": 0.4696, "ms_per_frame": 7.827, "x_realtime": 25.55}
+{"case": "arrow_uas_seeded", "stage": "agent_end_to_end", "seconds": 15.099, "video_seconds": 19.8, "x_realtime": 1.31}
+{"case": "lamorge", "stage": "klt", "frames": 48, "size": "1550x950", "seconds": 9.7688, "ms_per_frame": 203.516, "x_realtime": 0.98}
+{"case": "lamorge", "stage": "lspiv", "frames": 48, "size": "1550x950", "seconds": 1.0865, "ms_per_frame": 22.636, "x_realtime": 8.84}
+{"case": "lamorge", "stage": "stiv", "frames": 48, "size": "1550x950", "seconds": 0.1599, "ms_per_frame": 3.331, "x_realtime": 60.04}
+{"case": "lamorge", "stage": "dis", "frames": 48, "size": "1550x950", "seconds": 1.8379, "ms_per_frame": 38.289, "x_realtime": 5.22}
+{"case": "lamorge", "stage": "stabilise", "frames": 48, "size": "1550x950", "seconds": 0.6726, "ms_per_frame": 14.012, "x_realtime": 14.27}
+{"case": "lamorge", "stage": "agent_end_to_end", "seconds": 25.151, "video_seconds": 9.6, "x_realtime": 0.38}
+{"case": "lavence", "stage": "klt", "frames": 60, "size": "320x755", "seconds": 5.8644, "ms_per_frame": 97.739, "x_realtime": 0.34}
+{"case": "lavence", "stage": "lspiv", "frames": 60, "size": "320x755", "seconds": 0.226, "ms_per_frame": 3.766, "x_realtime": 8.85}
+{"case": "lavence", "stage": "stiv", "frames": 60, "size": "320x755", "seconds": 0.0886, "ms_per_frame": 1.476, "x_realtime": 22.58}
+{"case": "lavence", "stage": "dis", "frames": 60, "size": "320x755", "seconds": 1.0437, "ms_per_frame": 17.395, "x_realtime": 1.92}
+{"case": "lavence", "stage": "stabilise", "frames": 60, "size": "320x755", "seconds": 0.2394, "ms_per_frame": 3.991, "x_realtime": 8.35}
+{"case": "lavence", "stage": "agent_end_to_end", "seconds": 27.442, "video_seconds": 5.0, "x_realtime": 0.18}
+{"case": "noce", "stage": "klt", "frames": 60, "size": "1920x1080", "seconds": 11.8154, "ms_per_frame": 196.924, "x_realtime": 0.42}
+{"case": "noce", "stage": "lspiv", "frames": 60, "size": "1920x1080", "seconds": 0.7225, "ms_per_frame": 12.042, "x_realtime": 6.92}
+{"case": "noce", "stage": "stiv", "frames": 60, "size": "1920x1080", "seconds": 0.2189, "ms_per_frame": 3.649, "x_realtime": 22.84}
+{"case": "noce", "stage": "dis", "frames": 60, "size": "1920x1080", "seconds": 1.8569, "ms_per_frame": 30.948, "x_realtime": 2.69}
+{"case": "noce", "stage": "stabilise", "frames": 60, "size": "1920x1080", "seconds": 1.2754, "ms_per_frame": 21.257, "x_realtime": 3.92}
+{"case": "noce", "stage": "agent_end_to_end", "seconds": 38.172, "video_seconds": 5.8, "x_realtime": 0.15}
+wrote results/bench_cool_b.json

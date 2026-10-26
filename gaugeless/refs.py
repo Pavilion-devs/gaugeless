@@ -22,6 +22,8 @@ import os
 import numpy as np
 import pandas as pd
 
+trapezoid = getattr(np, "trapezoid", None) or np.trapz   # numpy < 2
+
 ROOT = os.environ.get("GAUGELESS_DATA") or os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "perks")
 COLS = ["x_px", "y_px", "v", "kind", "group", "w", "h"]
 
@@ -229,7 +231,7 @@ def adcp_section(key):
         rows.append((x, y, st, h, v))
     a = np.array(rows, float)
     a = a[np.argsort(a[:, 2])]
-    q_adcp = float(np.trapezoid(a[:, 4] * a[:, 3], a[:, 2]))
+    q_adcp = float(trapezoid(a[:, 4] * a[:, 3], a[:, 2]))
     return {"px": a[:, :2], "station": a[:, 2] - a[0, 2], "depth": a[:, 3], "v_depth_avg": a[:, 4],
             "q_ref": q_stated if q_stated else q_adcp, "q_adcp": q_adcp,
             "q_source": "stated in reference sheet" if q_stated else "integrated from ADCP verticals"}

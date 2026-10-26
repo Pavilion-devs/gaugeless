@@ -1,0 +1,10 @@
+== arrow_uas_seeded (rules)
+  => {'case': 'arrow_uas_seeded', 'outcome': 'published', 'steps': 5, 'surface': 14.7, 'surface_highconf': 15.0, 'planner': 'rules', 'seconds': 17.7, 'llm_usage': None}
+== lamorge (rules)
+  => {'case': 'lamorge', 'outcome': 'published', 'steps': 5, 'q': 1.3158, 'q_passed': True, 'q_ref': 1.3214, 'q_err': -0.0043, 'planner': 'rules', 'seconds': 29.2, 'llm_usage': None}
+== lavence (rules)
+  => {'case': 'lavence', 'outcome': 'published', 'steps': 8, 'depth_avg': 14.9, 'depth_avg_highconf': {'n': 0, 'coverage': 0.0, 'mape': None, 'bias': None, 'rmse': None}, 'q': 1.0582, 'q_passed': True, 'q_ref': 1.1787, 'q_err': -0.1022, 'planner': 'rules', 'seconds': 32.2, 'llm_usage': None}
+== noce (rules)
+  => {'case': 'noce', 'outcome': 'published', 'steps': 7, 'surface': 14.4, 'surface_highconf': 12.3, 'planner': 'rules', 'seconds': 43.8, 'llm_usage': None}
+== arrow_uas_unseeded (rules)
+  => {'case': 'arrow_uas_unseeded', 'outcome': 'refused', 'steps': 3, 'planner': 'rules', 'seconds': 6.4, 'llm_usage': None}
