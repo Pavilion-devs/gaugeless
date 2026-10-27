@@ -1,6 +1,8 @@
 """Caption groups from the voiceover word timings. Re-run after changing a VO line or its start time in index.html."""
 import json, re
-OFF = {"hook": 0.3, "problem": 12.2, "intro": 27.4, "shake": 34.6, "refuse": 60.6, "human": 76.6, "arch": 97.1, "results": 134, "end": 152.2}
+OFF = {"hook": 0.3, "problem": 12.2, "intro": 27.4, "shake": 39.6, "refuse": 65.6, "human": 81.6, "arch": 102.1, "results": 139, "end": 157.2}
+# the team line is captioned by hand: the transcriber cannot spell the names
+MANUAL = [(34.35, 38.6, "Built by Favour Olaboye and Opeyemi Mobolaji.")]
 FIX = {"Gauge-less": "Gaugeless", "Gauge-less,": "Gaugeless,", "OpenCV5": "OpenCV 5", "OpenCV-5": "OpenCV 5", "CV-5": "CV 5",
        "meters": "metres", "stabilizes": "stabilises", "optimized": "optimised", "AW,": "AWS,", "Sclips": "clips",
        "Qthrough": "queue through", "Cool,": "COOL,", "graviton": "Graviton", "graviton,": "Graviton,", "step": "Step", "functions": "Functions",
@@ -20,6 +22,8 @@ for k, off in OFF.items():
         j = p if p is not None else min(i + 5, len(words) - 1)
         if len(words) - 1 - j <= 1: j = len(words) - 1          # no one-word orphans at the end of a line
         groups.append(words[i:j + 1]); i = j + 1
+groups += [[(t, a, b)] for a, b, t in MANUAL]
+groups.sort(key=lambda g: g[0][1])
 html = []
 for i, g in enumerate(groups):
     s = g[0][1] - 0.05
@@ -35,7 +39,7 @@ open("compositions/captions.html", "w").write(f"""<template>
     .cap span {{ display: inline-block; max-width: 1500px; padding: 10px 26px 12px; border-radius: 14px; background: rgba(255,255,255,0.94);
                 border: 2px solid #1e1e1e; color: #1e1e1e; font-family: "Excalifont", sans-serif; font-size: 40px; line-height: 1.2; }}
   </style>
-  <div id="root" data-composition-id="captions" data-width="1920" data-height="1080" data-duration="158">
+  <div id="root" data-composition-id="captions" data-width="1920" data-height="1080" data-duration="163">
 {chr(10).join(html)}
   </div>
   <script>

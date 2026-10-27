@@ -1,0 +1,41 @@
+<template>
+  <style>
+    @font-face { font-family: "Excalifont"; src: url("assets/fonts/excalifont.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; background: #ffffff; overflow: hidden; font-family: "Excalifont", sans-serif; color: #1e1e1e; }
+    #tm-svg { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+    #tm-chip { position: absolute; left: 0; right: 0; top: 150px; text-align: center; opacity: 0; }
+    #tm-chip span { display: inline-block; padding: 8px 26px 10px; border: 3px solid #1971c2; color: #1971c2; border-radius: 14px; font-size: 40px; }
+    .tm-name { position: absolute; width: 640px; text-align: center; font-size: 60px; top: 640px; opacity: 0; }
+    .tm-role { position: absolute; width: 640px; text-align: center; font-size: 38px; color: #495057; top: 722px; opacity: 0; }
+    #tm-n1, #tm-r1 { left: 240px; } #tm-n2, #tm-r2 { left: 1040px; }
+  </style>
+  <div id="root" data-composition-id="team" data-width="1920" data-height="1080" data-duration="5">
+    <div id="tm-frame" class="clip" data-start="0" data-duration="5">
+      <svg id="tm-svg" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div id="tm-chip"><span>The team</span></div>
+      <div id="tm-n1" class="tm-name">Favour Olaboye</div>
+      <div id="tm-r1" class="tm-role">AI Engineer</div>
+      <div id="tm-n2" class="tm-name">Opeyemi Mobolaji</div>
+      <div id="tm-r2" class="tm-role">ML Engineer &amp; Developer</div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const S = "#tm-svg";
+      const person = (cx, color) => [SK.rect(S, cx - 300, 260, 600, 560, { strokeWidth: 3 }),
+                                     SK.ellipse(S, cx, 400, 120, 120, { stroke: color, strokeWidth: 3.4 }),
+                                     SK.path(S, `M ${cx - 110} 590 Q ${cx - 100} 480 ${cx} 478 Q ${cx + 100} 480 ${cx + 110} 590`, { stroke: color, strokeWidth: 3.4 })];
+      const p1 = person(560, "#1971c2"), p2 = person(1360, "#2f9e44");
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#tm-chip", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, 0.1);
+      SK.on(tl, p1, 0.3, 0.8);
+      SK.write(tl, "#tm-n1", 0.8, 0.6);
+      tl.fromTo("#tm-r1", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 1.3);
+      SK.on(tl, p2, 1.7, 0.8);
+      SK.write(tl, "#tm-n2", 2.2, 0.6);
+      tl.fromTo("#tm-r2", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 2.7);
+      tl.to("#tm-frame", { opacity: 0, filter: "blur(8px)", duration: 0.3, ease: "power3.in" }, 4.65);
+      window.__timelines["team"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Built",
+    "start": 0.08,
+    "end": 0.48,
+    "id": "w0"
+  },
+  {
+    "text": "by",
+    "start": 0.48,
+    "end": 0.67,
+    "id": "w1"
+  },
+  {
+    "text": "favor",
+    "start": 0.67,
+    "end": 1.15,
+    "id": "w2"
+  },
+  {
+    "text": "alla",
+    "start": 1.15,
+    "end": 1.52,
+    "id": "w3"
+  },
+  {
+    "text": "boi,",
+    "start": 1.52,
+    "end": 1.99,
+    "id": "w4"
+  },
+  {
+    "text": "an",
+    "start": 1.99,
+    "end": 2.15,
+    "id": "w5"
+  },
+  {
+    "text": "opium",
+    "start": 2.15,
+    "end": 2.55,
+    "id": "w6"
+  },
+  {
+    "text": "immobilagi.",
+    "start": 2.55,
+    "end": 3.37,
+    "id": "w7"
+  }
+]
