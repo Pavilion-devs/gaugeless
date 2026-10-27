@@ -14,7 +14,7 @@ Built for the **[OpenCV AI Competition 2026](https://opencv26.devpost.com/)**.
 ## Live
 
 - 🌐 **Live demo**: http://100.63.108.38/ (a small AWS Graviton server, so a run takes about a minute)
-- 🎥 **Demo video**: https://youtu.be/o9ElAowYNU0
+- 🎥 **Demo video**: https://youtu.be/w-aBVNMRU8g
 - 📄 **Technical report**: [`REPORT.md`](REPORT.md)
 - 🗺️ **Architecture**: [`docs/architecture.png`](docs/architecture.png)
 
