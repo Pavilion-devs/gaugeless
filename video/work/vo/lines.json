@@ -1,0 +1,11 @@
+{
+ "hook": "Most of the world's rivers have no gauge. A gauging station costs tens of thousands of dollars, so the small, fast rivers that cause flash floods go unmeasured.",
+ "problem": "A camera can measure a river. Track the surface, and pixels become metres per second. But on shaky, flickering, or featureless footage, the same code returns a confident, wrong number. And nobody is warned.",
+ "intro": "Gaugeless is an OpenCV 5 agent that judges the footage before it trusts the number.",
+ "shake": "This is a real river in France, filmed from a pole. We add heavy camera shake. The agent measures the motion on the banks, stabilises the clip, and checks that the repair actually worked. Then it measures the flow at two surveyed cross-sections, checks that they agree, and publishes: one point three one six cubic metres per second. The current-meter gauging says one point three two one.",
+ "refuse": "This clip has nothing on the water to track. Standard methods would report almost zero flow, with full confidence. Gaugeless measures tracer density first, and refuses, with advice to seed the surface.",
+ "human": "Now Claude, on Amazon Bedrock, is planning, and we set a flood threshold. Claude works through the same guarded tools. The flow is over the threshold, but the agent cannot send the alert itself. It stops, and waits for a human. Only after approval does the alert go out.",
+ "arch": "Under the hood, OpenCV 5 does all the vision: optical flow, template matching, space-time images, and a camera solve that straightens raw, oblique video. Thirteen tools carry the guard rails, so no planner can skip them. On AWS, clips land in S3, queue through SQS, and run on a Graviton worker, while Step Functions holds every alert for a person. And on COOL, the optimised OpenCV build for Graviton, the agent ran one point one six times faster.",
+ "results": "On five real rivers, discharge came within zero point four to fourteen percent of in-river measurements. On a hundred and five damaged clips, a fixed pipeline published twenty-four silently wrong numbers. Gaugeless published zero.",
+ "end": "Gaugeless. Measure what you can. Refuse what you can't."
+}

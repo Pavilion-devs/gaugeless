@@ -1,0 +1,64 @@
+<template>
+  <style>
+    @font-face { font-family: "Excalifont"; src: url("assets/fonts/excalifont.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; background: #ffffff; overflow: hidden; font-family: "Excalifont", sans-serif; color: #1e1e1e; }
+    #rs-svg { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+    .rs { position: absolute; white-space: nowrap; opacity: 0; }
+    .rs-h { font-size: 44px; }
+    .rs-sub { font-size: 30px; color: #6b6b6b; }
+    .rs-row { font-size: 38px; width: 780px; display: flex; }
+    .rs-row span:nth-child(1) { width: 300px; } .rs-row span:nth-child(2) { width: 300px; color: #6b6b6b; font-size: 32px; padding-top: 4px; }
+    .rs-row span:nth-child(3) { width: 180px; text-align: right; color: #2f9e44; }
+    #rs-fixed { left: 1080px; top: 320px; font-size: 40px; }
+    #rs-24 { left: 1700px; top: 392px; font-size: 92px; color: #e03131; }
+    #rs-gl { left: 1080px; top: 600px; font-size: 40px; }
+    #rs-0 { left: 1100px; top: 650px; font-size: 150px; line-height: 1; color: #2f9e44; }
+  </style>
+  <div data-hf-id="hf-oahy" id="root" data-composition-id="results" data-width="1920" data-height="1080" data-duration="18">
+    <div data-hf-id="hf-ksms" id="rs-frame" class="clip" data-start="0" data-duration="18">
+      <svg data-hf-id="hf-po4s" id="rs-svg" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div data-hf-id="hf-eh8z" id="rs-t1" class="rs rs-h" style="left:120px;top:130px">5 real rivers: discharge from video</div>
+      <div data-hf-id="hf-rpw7" id="rs-s1" class="rs rs-sub" style="left:122px;top:190px">error vs in-river measurement (current meter, ADCP)</div>
+      <div data-hf-id="hf-5jhe" id="rs-r0" class="rs rs-row" style="left:130px;top:280px"><span data-hf-id="hf-14xk">La Morge</span><span data-hf-id="hf-xvf2">pole camera</span><span data-hf-id="hf-yv64">&minus;0.4%</span></div>
+      <div data-hf-id="hf-hsy9" id="rs-r1" class="rs rs-row" style="left:130px;top:370px"><span data-hf-id="hf-xhtq">Thalhofen</span><span data-hf-id="hf-eauo">fixed camera</span><span data-hf-id="hf-f2t6">+1.0%</span></div>
+      <div data-hf-id="hf-on8s" id="rs-r2" class="rs rs-row" style="left:130px;top:460px"><span data-hf-id="hf-bvzg">Murg</span><span data-hf-id="hf-l5b2">4K drone</span><span data-hf-id="hf-gl1k">+3.4%</span></div>
+      <div data-hf-id="hf-8c6j" id="rs-r3" class="rs rs-row" style="left:130px;top:550px"><span data-hf-id="hf-e09b">La Vence</span><span data-hf-id="hf-xjjq">smartphone</span><span data-hf-id="hf-y7hb">&minus;10.2%</span></div>
+      <div data-hf-id="hf-gqda" id="rs-r4" class="rs rs-row" style="left:130px;top:640px"><span data-hf-id="hf-vdr3">Castor</span><span data-hf-id="hf-85wl">raw oblique video</span><span data-hf-id="hf-gj2m">&minus;13.8%</span></div>
+      <div data-hf-id="hf-zj69" id="rs-t2" class="rs rs-h" style="left:1080px;top:130px">105 damaged clips</div>
+      <div data-hf-id="hf-t0jb" id="rs-s2" class="rs rs-sub" style="left:1082px;top:190px">silently wrong numbers published</div>
+      <div data-hf-id="hf-t0qr" id="rs-fixed" class="rs">fixed pipeline</div>
+      <div data-hf-id="hf-jpav" id="rs-24" class="rs">24</div>
+      <div data-hf-id="hf-hp5g" id="rs-gl" class="rs">Gaugeless</div>
+      <div data-hf-id="hf-aojb" id="rs-0" class="rs">0</div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const S = "#rs-svg", R = "#e03131", G = "#2f9e44";
+      const rules = [270, 360, 450, 540, 630, 720].map(y => SK.line(S, 120, y, 920, y, { strokeWidth: 1.8, stroke: "#adb5bd", roughness: 0.7 }));
+      const divider = SK.line(S, 1000, 140, 1000, 820, { strokeWidth: 2, stroke: "#ced4da", roughness: 1 });
+      const tallies = [];
+      for (let i = 0; i < 24; i++) {
+        const g = Math.floor(i / 5), k = i % 5, x0 = 1090 + g * 120;
+        tallies.push(k < 4 ? SK.line(S, x0 + k * 22, 395, x0 + k * 22 + 4, 490, { stroke: R, strokeWidth: 4.5, roughness: 1.2 })
+                           : SK.line(S, x0 - 14, 470, x0 + 84, 410, { stroke: R, strokeWidth: 4.5, roughness: 1.2 }));
+      }
+      const tl = gsap.timeline({ paused: true });
+      const show = (sel, at) => tl.fromTo(sel, { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.35, ease: "power3.out" }, at);
+      SK.write(tl, "#rs-t1", 0.4, 0.8);
+      show("#rs-s1", 1.1);
+      SK.on(tl, rules, 1.2, 1.0);
+      ["#rs-r0", "#rs-r1", "#rs-r2", "#rs-r3", "#rs-r4"].forEach((s, i) => show(s, 2.6 + i * 0.55));
+      SK.on(tl, divider, 7.0, 0.5);
+      SK.write(tl, "#rs-t2", 7.8, 0.8);
+      show("#rs-s2", 8.6);
+      show("#rs-fixed", 10.4);
+      SK.on(tl, tallies, 11.0, 2.2, "none");
+      tl.fromTo("#rs-24", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 12.4);
+      show("#rs-gl", 14.8);
+      tl.fromTo("#rs-0", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, 15.6);
+      tl.to("#rs-frame", { opacity: 0, filter: "blur(8px)", duration: 0.3, ease: "power3.in" }, 17.65);
+      window.__timelines["results"] = tl;
+    })();
+  </script>
+</template>

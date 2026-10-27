@@ -1,0 +1,56 @@
+[
+  {
+    "text": "Gauge-less,",
+    "start": 0.1,
+    "end": 0.74,
+    "id": "w0"
+  },
+  {
+    "text": "measure",
+    "start": 0.9,
+    "end": 1.35,
+    "id": "w1"
+  },
+  {
+    "text": "what",
+    "start": 1.43,
+    "end": 1.72,
+    "id": "w2"
+  },
+  {
+    "text": "you",
+    "start": 1.72,
+    "end": 1.88,
+    "id": "w3"
+  },
+  {
+    "text": "can,",
+    "start": 1.94,
+    "end": 2.31,
+    "id": "w4"
+  },
+  {
+    "text": "refuse",
+    "start": 2.31,
+    "end": 2.66,
+    "id": "w5"
+  },
+  {
+    "text": "what",
+    "start": 2.66,
+    "end": 2.89,
+    "id": "w6"
+  },
+  {
+    "text": "you",
+    "start": 2.89,
+    "end": 3.06,
+    "id": "w7"
+  },
+  {
+    "text": "can't.",
+    "start": 3.06,
+    "end": 3.38,
+    "id": "w8"
+  }
+]

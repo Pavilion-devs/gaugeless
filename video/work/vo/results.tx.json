@@ -1,0 +1,176 @@
+[
+  {
+    "text": "On",
+    "start": 0.11,
+    "end": 0.2,
+    "id": "w0"
+  },
+  {
+    "text": "five",
+    "start": 0.2,
+    "end": 0.6,
+    "id": "w1"
+  },
+  {
+    "text": "real",
+    "start": 0.6,
+    "end": 1,
+    "id": "w2"
+  },
+  {
+    "text": "rivers,",
+    "start": 1,
+    "end": 1.8,
+    "id": "w3"
+  },
+  {
+    "text": "discharge",
+    "start": 1.94,
+    "end": 2.48,
+    "id": "w4"
+  },
+  {
+    "text": "came",
+    "start": 2.49,
+    "end": 2.8,
+    "id": "w5"
+  },
+  {
+    "text": "within",
+    "start": 2.8,
+    "end": 3.5,
+    "id": "w6"
+  },
+  {
+    "text": "0.4",
+    "start": 3.5,
+    "end": 4.55,
+    "id": "w7"
+  },
+  {
+    "text": "to",
+    "start": 4.55,
+    "end": 4.69,
+    "id": "w8"
+  },
+  {
+    "text": "14",
+    "start": 4.82,
+    "end": 5.17,
+    "id": "w9"
+  },
+  {
+    "text": "percent",
+    "start": 5.17,
+    "end": 5.69,
+    "id": "w10"
+  },
+  {
+    "text": "of",
+    "start": 5.73,
+    "end": 5.86,
+    "id": "w11"
+  },
+  {
+    "text": "in-river",
+    "start": 5.86,
+    "end": 6.44,
+    "id": "w12"
+  },
+  {
+    "text": "measurements.",
+    "start": 6.44,
+    "end": 7.44,
+    "id": "w13"
+  },
+  {
+    "text": "On",
+    "start": 7.55,
+    "end": 7.64,
+    "id": "w14"
+  },
+  {
+    "text": "105",
+    "start": 7.64,
+    "end": 8.55,
+    "id": "w15"
+  },
+  {
+    "text": "damaged",
+    "start": 8.55,
+    "end": 8.99,
+    "id": "w16"
+  },
+  {
+    "text": "clips,",
+    "start": 9.4,
+    "end": 9.98,
+    "id": "w17"
+  },
+  {
+    "text": "a",
+    "start": 10.05,
+    "end": 10.07,
+    "id": "w18"
+  },
+  {
+    "text": "fixed",
+    "start": 10.1,
+    "end": 10.51,
+    "id": "w19"
+  },
+  {
+    "text": "pipeline",
+    "start": 10.51,
+    "end": 11.16,
+    "id": "w20"
+  },
+  {
+    "text": "published",
+    "start": 11.25,
+    "end": 11.96,
+    "id": "w21"
+  },
+  {
+    "text": "24",
+    "start": 11.96,
+    "end": 12.39,
+    "id": "w22"
+  },
+  {
+    "text": "silently",
+    "start": 12.47,
+    "end": 13.13,
+    "id": "w23"
+  },
+  {
+    "text": "wrong",
+    "start": 13.17,
+    "end": 13.58,
+    "id": "w24"
+  },
+  {
+    "text": "numbers.",
+    "start": 13.58,
+    "end": 14.43,
+    "id": "w25"
+  },
+  {
+    "text": "Gauge-less",
+    "start": 14.59,
+    "end": 15.14,
+    "id": "w26"
+  },
+  {
+    "text": "published",
+    "start": 15.19,
+    "end": 15.81,
+    "id": "w27"
+  },
+  {
+    "text": "zero.",
+    "start": 15.81,
+    "end": 16.32,
+    "id": "w28"
+  }
+]

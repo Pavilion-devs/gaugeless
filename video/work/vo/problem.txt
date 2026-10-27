@@ -1,0 +1,1 @@
+A camera can measure a river. Track the surface, and pixels become metres per second. But on shaky, flickering, or featureless footage, the same code returns a confident, wrong number. And nobody is warned.

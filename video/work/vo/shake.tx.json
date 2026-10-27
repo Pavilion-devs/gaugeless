@@ -1,0 +1,362 @@
+[
+  {
+    "text": "This",
+    "start": 0.05,
+    "end": 0.33,
+    "id": "w0"
+  },
+  {
+    "text": "is",
+    "start": 0.33,
+    "end": 0.48,
+    "id": "w1"
+  },
+  {
+    "text": "a",
+    "start": 0.49,
+    "end": 0.57,
+    "id": "w2"
+  },
+  {
+    "text": "real",
+    "start": 0.57,
+    "end": 0.9,
+    "id": "w3"
+  },
+  {
+    "text": "river",
+    "start": 0.9,
+    "end": 1.31,
+    "id": "w4"
+  },
+  {
+    "text": "in",
+    "start": 1.31,
+    "end": 1.47,
+    "id": "w5"
+  },
+  {
+    "text": "France,",
+    "start": 1.47,
+    "end": 2.15,
+    "id": "w6"
+  },
+  {
+    "text": "filmed",
+    "start": 2.15,
+    "end": 2.57,
+    "id": "w7"
+  },
+  {
+    "text": "from",
+    "start": 2.65,
+    "end": 2.9,
+    "id": "w8"
+  },
+  {
+    "text": "a",
+    "start": 2.9,
+    "end": 2.96,
+    "id": "w9"
+  },
+  {
+    "text": "pole.",
+    "start": 2.96,
+    "end": 3.52,
+    "id": "w10"
+  },
+  {
+    "text": "We",
+    "start": 3.57,
+    "end": 3.68,
+    "id": "w11"
+  },
+  {
+    "text": "add",
+    "start": 3.68,
+    "end": 3.92,
+    "id": "w12"
+  },
+  {
+    "text": "heavy",
+    "start": 3.92,
+    "end": 4.31,
+    "id": "w13"
+  },
+  {
+    "text": "camera",
+    "start": 4.31,
+    "end": 4.78,
+    "id": "w14"
+  },
+  {
+    "text": "shake.",
+    "start": 4.78,
+    "end": 5.38,
+    "id": "w15"
+  },
+  {
+    "text": "The",
+    "start": 5.49,
+    "end": 5.62,
+    "id": "w16"
+  },
+  {
+    "text": "agent",
+    "start": 5.62,
+    "end": 5.92,
+    "id": "w17"
+  },
+  {
+    "text": "measures",
+    "start": 5.93,
+    "end": 6.43,
+    "id": "w18"
+  },
+  {
+    "text": "the",
+    "start": 6.43,
+    "end": 6.61,
+    "id": "w19"
+  },
+  {
+    "text": "motion",
+    "start": 6.61,
+    "end": 6.98,
+    "id": "w20"
+  },
+  {
+    "text": "on",
+    "start": 6.98,
+    "end": 7.09,
+    "id": "w21"
+  },
+  {
+    "text": "the",
+    "start": 7.09,
+    "end": 7.28,
+    "id": "w22"
+  },
+  {
+    "text": "banks,",
+    "start": 7.28,
+    "end": 7.76,
+    "id": "w23"
+  },
+  {
+    "text": "stabilizes",
+    "start": 7.81,
+    "end": 8.64,
+    "id": "w24"
+  },
+  {
+    "text": "the",
+    "start": 8.64,
+    "end": 8.9,
+    "id": "w25"
+  },
+  {
+    "text": "clip,",
+    "start": 8.9,
+    "end": 9.28,
+    "id": "w26"
+  },
+  {
+    "text": "and",
+    "start": 9.33,
+    "end": 9.49,
+    "id": "w27"
+  },
+  {
+    "text": "checks",
+    "start": 9.49,
+    "end": 9.92,
+    "id": "w28"
+  },
+  {
+    "text": "that",
+    "start": 9.92,
+    "end": 10.2,
+    "id": "w29"
+  },
+  {
+    "text": "the",
+    "start": 10.2,
+    "end": 10.41,
+    "id": "w30"
+  },
+  {
+    "text": "repair",
+    "start": 10.41,
+    "end": 10.84,
+    "id": "w31"
+  },
+  {
+    "text": "actually",
+    "start": 10.84,
+    "end": 11.41,
+    "id": "w32"
+  },
+  {
+    "text": "worked.",
+    "start": 11.41,
+    "end": 12.08,
+    "id": "w33"
+  },
+  {
+    "text": "Then",
+    "start": 12.13,
+    "end": 12.32,
+    "id": "w34"
+  },
+  {
+    "text": "it",
+    "start": 12.32,
+    "end": 12.44,
+    "id": "w35"
+  },
+  {
+    "text": "measures",
+    "start": 12.44,
+    "end": 12.93,
+    "id": "w36"
+  },
+  {
+    "text": "the",
+    "start": 12.93,
+    "end": 13.11,
+    "id": "w37"
+  },
+  {
+    "text": "flow",
+    "start": 13.11,
+    "end": 13.38,
+    "id": "w38"
+  },
+  {
+    "text": "at",
+    "start": 13.38,
+    "end": 13.4,
+    "id": "w39"
+  },
+  {
+    "text": "two",
+    "start": 13.53,
+    "end": 13.74,
+    "id": "w40"
+  },
+  {
+    "text": "surveyed",
+    "start": 13.75,
+    "end": 14.36,
+    "id": "w41"
+  },
+  {
+    "text": "cross-sections,",
+    "start": 14.36,
+    "end": 15.44,
+    "id": "w42"
+  },
+  {
+    "text": "checks",
+    "start": 15.49,
+    "end": 15.82,
+    "id": "w43"
+  },
+  {
+    "text": "that",
+    "start": 15.82,
+    "end": 16.07,
+    "id": "w44"
+  },
+  {
+    "text": "they",
+    "start": 16.07,
+    "end": 16.32,
+    "id": "w45"
+  },
+  {
+    "text": "agree,",
+    "start": 16.32,
+    "end": 16.76,
+    "id": "w46"
+  },
+  {
+    "text": "and",
+    "start": 16.89,
+    "end": 17.09,
+    "id": "w47"
+  },
+  {
+    "text": "publishes.",
+    "start": 17.09,
+    "end": 18.04,
+    "id": "w48"
+  },
+  {
+    "text": "1.316",
+    "start": 18.09,
+    "end": 19.5,
+    "id": "w49"
+  },
+  {
+    "text": "cubic",
+    "start": 19.5,
+    "end": 19.9,
+    "id": "w50"
+  },
+  {
+    "text": "meters",
+    "start": 20.15,
+    "end": 20.58,
+    "id": "w51"
+  },
+  {
+    "text": "per",
+    "start": 20.58,
+    "end": 20.87,
+    "id": "w52"
+  },
+  {
+    "text": "second.",
+    "start": 20.87,
+    "end": 21.78,
+    "id": "w53"
+  },
+  {
+    "text": "The",
+    "start": 21.83,
+    "end": 22.02,
+    "id": "w54"
+  },
+  {
+    "text": "current",
+    "start": 22.02,
+    "end": 22.59,
+    "id": "w55"
+  },
+  {
+    "text": "meter",
+    "start": 22.59,
+    "end": 23,
+    "id": "w56"
+  },
+  {
+    "text": "gauging",
+    "start": 23,
+    "end": 23.57,
+    "id": "w57"
+  },
+  {
+    "text": "says",
+    "start": 23.57,
+    "end": 23.9,
+    "id": "w58"
+  },
+  {
+    "text": "1.321.",
+    "start": 23.9,
+    "end": 25.42,
+    "id": "w59"
+  }
+]

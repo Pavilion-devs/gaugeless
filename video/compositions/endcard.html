@@ -1,0 +1,34 @@
+<template>
+  <style>
+    @font-face { font-family: "Excalifont"; src: url("assets/fonts/excalifont.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; background: #ffffff; overflow: hidden; font-family: "Excalifont", sans-serif; color: #1e1e1e; }
+    #ec-svg { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+    #ec-name { position: absolute; left: 0; right: 0; top: 250px; text-align: center; font-size: 190px; line-height: 1; }
+    #ec-l1 { position: absolute; left: 0; right: 0; top: 520px; text-align: center; font-size: 64px; }
+    #ec-l2 { position: absolute; left: 0; right: 0; top: 600px; text-align: center; font-size: 64px; color: #e03131; }
+    #ec-url { position: absolute; left: 0; right: 0; top: 760px; text-align: center; font-size: 36px; color: #6b6b6b; }
+  </style>
+  <div data-hf-id="hf-xi4w" id="root" data-composition-id="endcard" data-width="1920" data-height="1080" data-duration="6.4">
+    <div data-hf-id="hf-ok70" id="ec-frame" class="clip" data-start="0" data-duration="6.4">
+      <svg data-hf-id="hf-rm67" id="ec-svg" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div data-hf-id="hf-tewn" id="ec-name">GAUGELESS</div>
+      <div data-hf-id="hf-5bsq" id="ec-l1">Measure what you can.</div>
+      <div data-hf-id="hf-d8xa" id="ec-l2">Refuse what you can't.</div>
+      <div data-hf-id="hf-zzdo" id="ec-url">live demo: 100.63.108.38 &middot; github.com/Pavilion-devs/gaugeless</div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const S = "#ec-svg";
+      const wave = Array.from({ length: 13 }, (_, i) => [600 + i * 60, 478 + Math.sin(i * 1.2) * 8]);
+      const line = SK.curve(S, wave, { stroke: "#1971c2", strokeWidth: 7, roughness: 0.8 });
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#ec-name", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0.1);
+      SK.on(tl, line, 0.4, 0.6, "power3.out");
+      SK.write(tl, "#ec-l1", 1.2, 0.8);
+      SK.write(tl, "#ec-l2", 2.9, 0.8);
+      tl.fromTo("#ec-url", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 3.3);
+      window.__timelines["endcard"] = tl;
+    })();
+  </script>
+</template>

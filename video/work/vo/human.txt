@@ -1,0 +1,1 @@
+Now Claude, on Amazon Bedrock, is planning, and we set a flood threshold. Claude works through the same guarded tools. The flow is over the threshold, but the agent cannot send the alert itself. It stops, and waits for a human. Only after approval does the alert go out.

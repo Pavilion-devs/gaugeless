@@ -1,0 +1,71 @@
+<template>
+  <style>
+    @font-face { font-family: "Excalifont"; src: url("assets/fonts/excalifont.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; background: #ffffff; overflow: hidden; font-family: "Excalifont", sans-serif; color: #1e1e1e; }
+    #pb-svg { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+    .pb-t { position: absolute; font-size: 40px; line-height: 1.1; }
+    #pb-chip { left: 96px; top: 56px; padding: 8px 22px; border: 3px solid #e8590c; color: #e8590c; border-radius: 14px; font-size: 34px; }
+    #pb-ms { left: 1110px; top: 250px; font-size: 54px; color: #1971c2; }
+    #pb-ms2 { left: 1112px; top: 322px; font-size: 32px; color: #6b6b6b; }
+    .pb-lab { top: 742px; width: 300px; text-align: center; font-size: 38px; }
+    #pb-l1 { left: 190px; } #pb-l2 { left: 550px; } #pb-l3 { left: 910px; }
+    #pb-pub { left: 1396px; top: 524px; font-size: 33px; white-space: nowrap; }
+    #pb-err { left: 1396px; top: 584px; font-size: 66px; color: #e03131; white-space: nowrap; }
+    #pb-warn { left: 1396px; top: 690px; font-size: 44px; color: #e03131; white-space: nowrap; }
+  </style>
+  <div data-hf-id="hf-wype" id="root" data-composition-id="problem" data-width="1920" data-height="1080" data-duration="15">
+    <div data-hf-id="hf-5nnc" id="pb-frame" class="clip" data-start="0" data-duration="15">
+      <svg data-hf-id="hf-uqwl" id="pb-svg" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div data-hf-id="hf-23l0" id="pb-chip" class="pb-t">The catch</div>
+      <div data-hf-id="hf-6xrk" id="pb-ms" class="pb-t">pixels &rarr; metres per second</div>
+      <div data-hf-id="hf-ysck" id="pb-ms2" class="pb-t">image velocimetry: track the water surface</div>
+      <div data-hf-id="hf-t0xh" id="pb-l1" class="pb-t pb-lab">shaky</div>
+      <div data-hf-id="hf-nsf2" id="pb-l2" class="pb-t pb-lab">flickering</div>
+      <div data-hf-id="hf-2p3u" id="pb-l3" class="pb-t pb-lab">featureless</div>
+      <div data-hf-id="hf-19b1" id="pb-pub" class="pb-t">published: a confident number</div>
+      <div data-hf-id="hf-yuey" id="pb-err" class="pb-t">&minus;95 to &minus;100%</div>
+      <div data-hf-id="hf-ddi6" id="pb-warn" class="pb-t">warning: none</div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const S = "#pb-svg", W = "#1971c2", R = "#e03131", G = "#868e96";
+      // camera -> frame with tracers and flow vectors
+      const cam = [SK.rect(S, 190, 240, 180, 116, { strokeWidth: 3 }), SK.ellipse(S, 280, 298, 70, 70, { strokeWidth: 3 }),
+                   SK.rect(S, 214, 218, 46, 22, {})];
+      const a1 = SK.arrow(S, 395, 298, 515, 298, { strokeWidth: 3 });
+      const frame = SK.rect(S, 540, 180, 420, 236, { strokeWidth: 3 });
+      const dots = [[580, 220], [640, 260], [700, 210], [760, 300], [820, 240], [880, 330], [610, 360], [680, 330], [900, 220], [790, 380], [860, 270], [600, 300]];
+      const vecs = dots.map(([x, y]) => SK.arrow(S, x, y, x + 38, y + 4, { stroke: W, strokeWidth: 2.4, head: 10, roughness: 0.6 }));
+      const a2 = SK.arrow(S, 980, 298, 1090, 298, { strokeWidth: 3 });
+      // three bad clips
+      const shaky = [SK.rect(S, 200, 540, 280, 180, {}), SK.rect(S, 218, 556, 280, 180, { stroke: G, strokeWidth: 2 })];
+      const flick = [SK.rect(S, 560, 548, 280, 180, { fill: "#ced4da", fillStyle: "hachure", hachureGap: 14, fillWeight: 1.6 })];
+      const plain = [SK.rect(S, 920, 548, 280, 180, {})];
+      const a3 = SK.arrow(S, 1230, 638, 1345, 638, { strokeWidth: 3 });
+      const card = SK.rect(S, 1370, 500, 500, 270, { strokeWidth: 3.2 });
+
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#pb-chip", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, 0.1);
+      SK.on(tl, cam, 0.3, 0.8);
+      SK.on(tl, a1, 1.6, 0.4);
+      SK.on(tl, frame, 2.2, 0.6);
+      SK.on(tl, vecs, 2.6, 1.0);
+      SK.on(tl, a2, 3.4, 0.3);
+      SK.write(tl, "#pb-ms", 3.6, 1.0);
+      SK.write(tl, "#pb-ms2", 4.6, 0.8);
+      SK.on(tl, shaky, 6.2, 0.6); SK.write(tl, "#pb-l1", 6.4, 0.4);
+      SK.on(tl, flick, 6.9, 0.7); SK.write(tl, "#pb-l2", 7.1, 0.5);
+      SK.on(tl, plain, 8.0, 0.5); SK.write(tl, "#pb-l3", 8.2, 0.6);
+      tl.fromTo(shaky, { x: 0 }, { x: 5, duration: 0.07, repeat: 60, yoyo: true, ease: "none" }, 6.8);
+      tl.fromTo(flick, { opacity: 1 }, { opacity: 0.35, duration: 0.18, repeat: 30, yoyo: true, ease: "none" }, 7.6);
+      SK.on(tl, a3, 9.0, 0.35);
+      SK.on(tl, card, 9.2, 0.6);
+      SK.write(tl, "#pb-pub", 9.6, 0.8);
+      tl.fromTo("#pb-err", { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 10.8);
+      SK.write(tl, "#pb-warn", 12.9, 0.7);
+      tl.to("#pb-frame", { opacity: 0, filter: "blur(8px)", duration: 0.3, ease: "power3.in" }, 14.65);
+      window.__timelines["problem"] = tl;
+    })();
+  </script>
+</template>

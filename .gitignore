@@ -12,3 +12,13 @@ data/*
 !data/perks/
 data/perks/*
 !data/perks/MANIFEST.tsv
+
+# demo video project (renders are large)
+video/renders/
+video/node_modules/
+video/.media/
+video/work/cap/
+video/work/dl/
+video/work/check.json
+video/.hyperframes/
+video/assets/bgm.wav

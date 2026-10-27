@@ -1,0 +1,92 @@
+[
+  {
+    "text": "Gauge-less",
+    "start": 0.08,
+    "end": 1.06,
+    "id": "w0"
+  },
+  {
+    "text": "is",
+    "start": 1.2,
+    "end": 1.32,
+    "id": "w1"
+  },
+  {
+    "text": "an",
+    "start": 1.42,
+    "end": 1.56,
+    "id": "w2"
+  },
+  {
+    "text": "open",
+    "start": 1.56,
+    "end": 2.01,
+    "id": "w3"
+  },
+  {
+    "text": "CV-5",
+    "start": 2.01,
+    "end": 2.68,
+    "id": "w4"
+  },
+  {
+    "text": "agent",
+    "start": 2.68,
+    "end": 2.99,
+    "id": "w5"
+  },
+  {
+    "text": "that",
+    "start": 3.37,
+    "end": 3.59,
+    "id": "w6"
+  },
+  {
+    "text": "judges",
+    "start": 3.59,
+    "end": 3.98,
+    "id": "w7"
+  },
+  {
+    "text": "the",
+    "start": 3.99,
+    "end": 4.12,
+    "id": "w8"
+  },
+  {
+    "text": "footage",
+    "start": 4.27,
+    "end": 4.6,
+    "id": "w9"
+  },
+  {
+    "text": "before",
+    "start": 4.69,
+    "end": 5.01,
+    "id": "w10"
+  },
+  {
+    "text": "it",
+    "start": 5.01,
+    "end": 5.08,
+    "id": "w11"
+  },
+  {
+    "text": "trusts",
+    "start": 5.18,
+    "end": 5.5,
+    "id": "w12"
+  },
+  {
+    "text": "the",
+    "start": 5.58,
+    "end": 5.64,
+    "id": "w13"
+  },
+  {
+    "text": "number.",
+    "start": 5.64,
+    "end": 6,
+    "id": "w14"
+  }
+]

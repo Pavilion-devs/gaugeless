@@ -1,0 +1,170 @@
+[
+  {
+    "text": "Most",
+    "start": 0.04,
+    "end": 0.33,
+    "id": "w0"
+  },
+  {
+    "text": "of",
+    "start": 0.33,
+    "end": 0.49,
+    "id": "w1"
+  },
+  {
+    "text": "the",
+    "start": 0.5,
+    "end": 0.74,
+    "id": "w2"
+  },
+  {
+    "text": "world's",
+    "start": 0.77,
+    "end": 1.33,
+    "id": "w3"
+  },
+  {
+    "text": "rivers",
+    "start": 1.33,
+    "end": 1.83,
+    "id": "w4"
+  },
+  {
+    "text": "have",
+    "start": 1.83,
+    "end": 2.03,
+    "id": "w5"
+  },
+  {
+    "text": "no",
+    "start": 2.15,
+    "end": 2.32,
+    "id": "w6"
+  },
+  {
+    "text": "gauge.",
+    "start": 2.32,
+    "end": 2.84,
+    "id": "w7"
+  },
+  {
+    "text": "A",
+    "start": 2.84,
+    "end": 2.87,
+    "id": "w8"
+  },
+  {
+    "text": "gauging",
+    "start": 2.87,
+    "end": 3.41,
+    "id": "w9"
+  },
+  {
+    "text": "station",
+    "start": 3.41,
+    "end": 3.95,
+    "id": "w10"
+  },
+  {
+    "text": "costs",
+    "start": 3.95,
+    "end": 4.36,
+    "id": "w11"
+  },
+  {
+    "text": "tens",
+    "start": 4.36,
+    "end": 4.62,
+    "id": "w12"
+  },
+  {
+    "text": "of",
+    "start": 4.62,
+    "end": 4.75,
+    "id": "w13"
+  },
+  {
+    "text": "thousands",
+    "start": 4.75,
+    "end": 5.1,
+    "id": "w14"
+  },
+  {
+    "text": "of",
+    "start": 5.1,
+    "end": 5.64,
+    "id": "w15"
+  },
+  {
+    "text": "dollars,",
+    "start": 5.64,
+    "end": 6.44,
+    "id": "w16"
+  },
+  {
+    "text": "so",
+    "start": 6.48,
+    "end": 6.61,
+    "id": "w17"
+  },
+  {
+    "text": "the",
+    "start": 6.61,
+    "end": 6.86,
+    "id": "w18"
+  },
+  {
+    "text": "small,",
+    "start": 6.86,
+    "end": 7.44,
+    "id": "w19"
+  },
+  {
+    "text": "fast",
+    "start": 7.45,
+    "end": 7.79,
+    "id": "w20"
+  },
+  {
+    "text": "rivers",
+    "start": 7.79,
+    "end": 8.32,
+    "id": "w21"
+  },
+  {
+    "text": "that",
+    "start": 8.32,
+    "end": 8.46,
+    "id": "w22"
+  },
+  {
+    "text": "cause",
+    "start": 8.56,
+    "end": 8.76,
+    "id": "w23"
+  },
+  {
+    "text": "flash",
+    "start": 9.27,
+    "end": 9.31,
+    "id": "w24"
+  },
+  {
+    "text": "floods",
+    "start": 9.31,
+    "end": 9.83,
+    "id": "w25"
+  },
+  {
+    "text": "go",
+    "start": 9.88,
+    "end": 9.99,
+    "id": "w26"
+  },
+  {
+    "text": "unmeasured.",
+    "start": 9.99,
+    "end": 11,
+    "id": "w27"
+  }
+]

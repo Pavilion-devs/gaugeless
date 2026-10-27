@@ -1,0 +1,32 @@
+<template>
+  <style>
+    @font-face { font-family: "Excalifont"; src: url("assets/fonts/excalifont.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; background: #ffffff; overflow: hidden; font-family: "Excalifont", sans-serif; color: #1e1e1e; }
+    #in-svg { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+    #in-name { position: absolute; left: 0; right: 0; top: 300px; text-align: center; font-size: 210px; line-height: 1; }
+    #in-sub { position: absolute; left: 0; right: 0; top: 600px; text-align: center; font-size: 50px; }
+    #in-foot { position: absolute; left: 0; right: 0; top: 760px; text-align: center; font-size: 32px; color: #6b6b6b; }
+  </style>
+  <div data-hf-id="hf-h7zg" id="root" data-composition-id="intro" data-width="1920" data-height="1080" data-duration="7">
+    <div data-hf-id="hf-j834" id="in-frame" class="clip" data-start="0" data-duration="7">
+      <svg data-hf-id="hf-igsg" id="in-svg" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div data-hf-id="hf-6rmm" id="in-name">GAUGELESS</div>
+      <div data-hf-id="hf-700v" id="in-sub">an OpenCV 5 agent that judges the footage before it trusts the number</div>
+      <div data-hf-id="hf-8q9x" id="in-foot">OpenCV 5 &middot; Claude on Amazon Bedrock &middot; AWS Graviton &middot; COOL</div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const S = "#in-svg";
+      const wave = Array.from({ length: 13 }, (_, i) => [560 + i * 67, 548 + Math.sin(i * 1.2) * 9]);
+      const line = SK.curve(S, wave, { stroke: "#1971c2", strokeWidth: 7, roughness: 0.8 });
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#in-name", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 0.2);
+      SK.on(tl, line, 0.6, 0.7, "power3.out");
+      tl.fromTo("#in-sub", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.4, ease: "power4.out" }, 2.4);
+      tl.fromTo("#in-foot", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 3.6);
+      tl.to("#in-frame", { opacity: 0, filter: "blur(8px)", duration: 0.3, ease: "power3.in" }, 6.65);
+      window.__timelines["intro"] = tl;
+    })();
+  </script>
+</template>

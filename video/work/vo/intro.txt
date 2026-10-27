@@ -1,0 +1,1 @@
+Gaugeless is an OpenCV 5 agent that judges the footage before it trusts the number.

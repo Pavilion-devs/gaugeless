@@ -1,0 +1,123 @@
+<template>
+  <style>
+    @font-face { font-family: "Excalifont"; src: url("assets/fonts/excalifont.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; background: #ffffff; overflow: hidden; font-family: "Excalifont", sans-serif; color: #1e1e1e; }
+    #ar-stage { position: absolute; left: 0; top: 0; width: 2200px; height: 1320px; transform-origin: 0 0; }
+    #ar-svg { position: absolute; inset: 0; width: 2200px; height: 1320px; overflow: visible; }
+    .bx { position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 10px 16px; }
+    .bx b { font-weight: normal; font-size: 40px; line-height: 1.15; }
+    .bx i { font-style: normal; font-size: 29px; line-height: 1.25; color: #495057; margin-top: 6px; }
+    .lab { position: absolute; font-size: 30px; color: #495057; white-space: nowrap; }
+    #ar-head { position: absolute; left: 0; top: 0; font-size: 46px; white-space: nowrap; }
+    #ar-cool { position: absolute; left: 1720px; top: 110px; width: 440px; height: 92px; display: flex; align-items: center; justify-content: center;
+               font-size: 34px; color: #2f9e44; white-space: nowrap; }
+    .bx, .lab, #ar-cool, #ar-cool2 { opacity: 0; }
+    #ar-cool2 { position: absolute; left: 1720px; top: 210px; width: 440px; text-align: center; font-size: 56px; color: #2f9e44; white-space: nowrap; }
+  </style>
+  <div data-hf-id="hf-61zx" id="root" data-composition-id="arch" data-width="1920" data-height="1080" data-duration="37">
+    <div data-hf-id="hf-w0hs" id="ar-frame" class="clip" data-start="0" data-duration="37" data-layout-allow-overflow>
+      <div data-hf-id="hf-rl9l" id="ar-stage">
+        <svg data-hf-id="hf-09f3" id="ar-svg" viewBox="0 0 2200 1320" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div data-hf-id="hf-gpib" id="ar-head" class="lab" style="left:80px;top:338px;color:#1e1e1e">Graviton worker &middot; EC2 arm64 &middot; OpenCV 5.0</div>
+
+        <div data-hf-id="hf-l3ah" id="b-qa" class="bx" style="left:100px;top:410px;width:370px;height:220px"><b data-hf-id="hf-j760">Frame QA</b><i data-hf-id="hf-gdov">camera solve &middot; calibrateCamera &middot; remap</i></div>
+        <div data-hf-id="hf-d0v9" id="b-dx" class="bx" style="left:520px;top:410px;width:370px;height:220px"><b data-hf-id="hf-7grh">Diagnose</b><i data-hf-id="hf-sclp">tracer density &middot; shake &middot; flicker &middot; glare</i></div>
+        <div data-hf-id="hf-sfzp" id="b-rp" class="bx" style="left:940px;top:410px;width:370px;height:220px"><b data-hf-id="hf-fgz8">Repair</b><i data-hf-id="hf-9lpa">stabilise (self-checking) &middot; dedupe &middot; glare mask</i></div>
+        <div data-hf-id="hf-hmpa" id="b-ms" class="bx" style="left:1360px;top:410px;width:370px;height:220px"><b data-hf-id="hf-et3z">Measure</b><i data-hf-id="hf-wwxb">optical flow &middot; template matching &middot; space-time images</i></div>
+        <div data-hf-id="hf-23pm" id="b-ck" class="bx" style="left:1780px;top:410px;width:330px;height:220px"><b data-hf-id="hf-dfev">Check</b><i data-hf-id="hf-tswv">two-section continuity &middot; Froude &middot; coverage</i></div>
+
+        <div data-hf-id="hf-jud3" id="b-pl" class="bx" style="left:540px;top:700px;width:1120px;height:170px"><b data-hf-id="hf-7may">Agent planner &middot; 13 tools with guard rails</b><i data-hf-id="hf-2hdv">rules &middot; Claude on Bedrock &middot; Qwen inside cv2.dnn<br data-hf-id="hf-x5px">acts only through tools &middot; cannot approve itself</i></div>
+        <div data-hf-id="hf-e1aa" id="l-calls" class="lab" style="left:1120px;top:646px">calls tools</div>
+
+        <div data-hf-id="hf-a9h6" id="b-in" class="bx" style="left:200px;top:110px;width:440px;height:130px"><b data-hf-id="hf-potg">River camera</b><i data-hf-id="hf-jjx4">pole &middot; drone &middot; phone</i></div>
+        <div data-hf-id="hf-y1lr" id="b-s3" class="bx" style="left:780px;top:110px;width:380px;height:130px"><b data-hf-id="hf-wvj7">S3</b><i data-hf-id="hf-rdgq">clip + job uploads</i></div>
+        <div data-hf-id="hf-l9ob" id="b-sqs" class="bx" style="left:1300px;top:110px;width:380px;height:130px"><b data-hf-id="hf-etxq">SQS</b><i data-hf-id="hf-8zgg">job queue</i></div>
+
+        <div data-hf-id="hf-gvcj" id="b-dec" class="bx" style="left:760px;top:960px;width:680px;height:110px"><b data-hf-id="hf-bx32">publish &middot; refuse &middot; escalate</b></div>
+        <div data-hf-id="hf-4pav" id="b-br" class="bx" style="left:1780px;top:950px;width:360px;height:140px"><b data-hf-id="hf-ncdz">Amazon Bedrock</b><i data-hf-id="hf-9who">Claude Sonnet 4.5</i></div>
+        <div data-hf-id="hf-9e27" id="b-sf" class="bx" style="left:420px;top:1160px;width:440px;height:120px"><b data-hf-id="hf-ir92">Step Functions</b><i data-hf-id="hf-um77">waits for a person</i></div>
+        <div data-hf-id="hf-z28h" id="b-hu" class="bx" style="left:960px;top:1160px;width:340px;height:120px"><b data-hf-id="hf-s7xy">Person approves</b></div>
+        <div data-hf-id="hf-s92z" id="b-sns" class="bx" style="left:1400px;top:1160px;width:400px;height:120px"><b data-hf-id="hf-awhf">SNS flood alert</b><i data-hf-id="hf-jcij">only after approval</i></div>
+
+        <div data-hf-id="hf-oxsz" id="ar-cool">COOL on Graviton3</div>
+        <div data-hf-id="hf-tnhy" id="ar-cool2">1.16&times; faster</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const S = "#ar-svg", G = "#2f9e44", B = "#1971c2", O = "#e8590c";
+      const box = id => { const e = document.querySelector("#" + id); return SK.rect(S, e.offsetLeft, e.offsetTop, e.offsetWidth, e.offsetHeight, { strokeWidth: 2.8 }); };
+      const container = SK.rect(S, 60, 320, 2090, 580, { strokeWidth: 2.4, roughness: 0.8 });
+      const pipe = ["b-qa", "b-dx", "b-rp", "b-ms", "b-ck"].map(box);
+      const pArrows = [[470, 520], [890, 940], [1310, 1360], [1730, 1780]].map(([a, b]) => SK.arrow(S, a + 4, 515, b - 4, 515, { strokeWidth: 2.6 }));
+      const msRing = SK.ellipse(S, 1545, 580, 400, 110, { stroke: B, strokeWidth: 4, roughness: 1.5 });
+      const qaRing = SK.ellipse(S, 285, 580, 390, 110, { stroke: B, strokeWidth: 4, roughness: 1.5 });
+      const planner = box("b-pl");
+      const calls = SK.line(S, 1100, 695, 1100, 638, { strokeWidth: 2.6, strokeLineDash: [12, 10] });
+      const callsHead = SK.poly(S, [[1088, 652], [1100, 636], [1112, 652]], { strokeWidth: 2.6 });
+      const toolRing = SK.ellipse(S, 1100, 745, 860, 70, { stroke: O, strokeWidth: 4, roughness: 1.5 });
+      const inputs = ["b-in", "b-s3", "b-sqs"].map(box);
+      const a1 = SK.arrow(S, 644, 175, 776, 175, { strokeWidth: 2.6 });
+      const a2 = SK.arrow(S, 1164, 175, 1296, 175, { strokeWidth: 2.6 });
+      const a3 = SK.arrow(S, 1490, 244, 1490, 412, { strokeWidth: 2.6 });
+      const headRing = SK.ellipse(S, 475, 362, 860, 84, { stroke: B, strokeWidth: 4, roughness: 1.5 });
+      const dec = box("b-dec"), br = box("b-br");
+      const a4 = SK.arrow(S, 1100, 874, 1100, 954, { strokeWidth: 2.6 });
+      const a5 = SK.line(S, 1664, 800, 1940, 954, { strokeWidth: 2.4, strokeLineDash: [12, 10] });
+      const lower = ["b-sf", "b-hu", "b-sns"].map(box);
+      const a6 = SK.arrow(S, 860, 1074, 680, 1154, { strokeWidth: 2.6 });
+      const a7 = SK.arrow(S, 864, 1220, 954, 1220, { strokeWidth: 2.6 });
+      const a8 = SK.arrow(S, 1304, 1220, 1394, 1220, { strokeWidth: 2.6 });
+      const humanRing = SK.ellipse(S, 1130, 1220, 400, 150, { stroke: O, strokeWidth: 4.5, roughness: 1.6 });
+      const cool = SK.rect(S, 1720, 110, 440, 92, { stroke: G, strokeWidth: 4, fill: "#ebfbee", fillStyle: "solid" });
+
+      const show = (sel, at, d) => tl.fromTo(sel, { opacity: 0, filter: "blur(5px)" }, { opacity: 1, filter: "blur(0px)", duration: d || 0.35, ease: "power3.out" }, at);
+      const tl = gsap.timeline({ paused: true });
+      // 1 · OpenCV 5 does the vision: the pipeline row
+      tl.set("#ar-stage", { x: 5, y: 49, scale: 0.868 }, 0);
+      SK.on(tl, container, 0.3, 0.9);
+      show("#ar-head", 0.8);
+      ["b-qa", "b-dx", "b-rp", "b-ms", "b-ck"].forEach((id, i) => { SK.on(tl, pipe[i], 1.5 + i * 0.45, 0.5); show("#" + id, 1.8 + i * 0.45); });
+      SK.on(tl, pArrows, 2.4, 1.4);
+      SK.on(tl, msRing, 4.5, 0.6, "power3.out");
+      tl.to(msRing, { opacity: 0, duration: 0.3 }, 8.0);
+      SK.on(tl, qaRing, 8.4, 0.6, "power3.out");
+      tl.to(qaRing, { opacity: 0, duration: 0.3 }, 11.4);
+      // 2 · the planner and its guard rails
+      tl.to("#ar-stage", { y: -55, duration: 1.0, ease: "power2.inOut" }, 11.2);
+      SK.on(tl, planner, 12.0, 0.7); show("#b-pl", 12.3);
+      SK.on(tl, [calls, callsHead], 12.8, 0.4); show("#l-calls", 13.0);
+      SK.on(tl, toolRing, 13.2, 0.6, "power3.out");
+      tl.to(toolRing, { opacity: 0, duration: 0.3 }, 16.0);
+      // 3 · AWS around it
+      tl.to("#ar-stage", { x: 212, y: 6, scale: 0.68, duration: 1.3, ease: "power2.inOut" }, 15.9);
+      SK.on(tl, inputs[0], 16.8, 0.5); show("#b-in", 17.0);
+      SK.on(tl, a1, 17.4, 0.3);
+      SK.on(tl, inputs[1], 17.6, 0.5); show("#b-s3", 17.8);
+      SK.on(tl, a2, 20.6, 0.3);
+      SK.on(tl, inputs[2], 20.9, 0.5); show("#b-sqs", 21.1);
+      SK.on(tl, a3, 21.9, 0.4);
+      SK.on(tl, headRing, 22.5, 0.6, "power3.out");
+      tl.to(headRing, { opacity: 0, duration: 0.3 }, 24.6);
+      SK.on(tl, a4, 23.4, 0.3);
+      SK.on(tl, dec, 23.6, 0.5); show("#b-dec", 23.8);
+      SK.on(tl, [a5, br], 23.9, 0.6); show("#b-br", 24.2);
+      SK.on(tl, a6, 24.7, 0.3);
+      SK.on(tl, lower[0], 24.9, 0.5); show("#b-sf", 25.1);
+      SK.on(tl, a7, 25.6, 0.25);
+      SK.on(tl, lower[1], 25.8, 0.5); show("#b-hu", 26.0);
+      SK.on(tl, a8, 26.5, 0.25);
+      SK.on(tl, lower[2], 26.7, 0.5); show("#b-sns", 26.9);
+      SK.on(tl, humanRing, 26.4, 0.6, "power3.out");
+      tl.to(humanRing, { opacity: 0, duration: 0.3 }, 28.6);
+      // 4 · COOL
+      tl.fromTo(cool, { opacity: 0 }, { opacity: 1, duration: 0.4 }, 28.2); SK.on(tl, cool, 28.2, 0.6); show("#ar-cool", 28.5);
+      show("#ar-cool2", 32.4, 0.4);
+      tl.fromTo("#ar-cool2", { scale: 1.2 }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, 32.4);
+      tl.to("#ar-stage", { x: 150, y: 12, scale: 0.7, duration: 8.4, ease: "none" }, 28.2);
+      tl.to("#ar-frame", { opacity: 0, filter: "blur(8px)", duration: 0.3, ease: "power3.in" }, 36.65);
+      window.__timelines["arch"] = tl;
+    })();
+  </script>
+</template>
